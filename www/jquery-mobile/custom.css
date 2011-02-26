@@ -24,8 +24,8 @@
 	font-weight: bold;
 	text-shadow: 0 -1px 1px #000000;
 	background-image: -moz-linear-gradient(top, 
-							#3c3c3c, 
-							#111111);
+							#282, 
+							#185f18);
 	background-image: -webkit-gradient(linear,left top,left bottom,
 		color-stop(0, 	#282),
 		color-stop(1, 		#185f18));
@@ -668,7 +668,7 @@ a.ui-link-inherit {
 }
 
 
-/* Active class used as the "on" state across all themes
+/* Active class used as the "on" state across all themes (282 to 185f18)
 -----------------------------------------------------------------------------------------------------------*/
 
 .ui-btn-active {
@@ -680,11 +680,11 @@ a.ui-link-inherit {
 	text-shadow: 0 -1px 1px #145072;
 	text-decoration: none;
 	background-image: -moz-linear-gradient(top, 
-							#85bae4, 
-							#5393c5);
+							#282, 
+							#185f18);
 	background-image: -webkit-gradient(linear,left top,left bottom,
-		color-stop(0, 		#85bae4),
-		color-stop(1, 		#5393c5));
+		color-stop(0, 		#282),
+		color-stop(1, 		#185f18));
   	-msfilter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#85bae4', EndColorStr='#5393c5')";
   	outline: none;
 }
