@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2009 Archie L. Cobbs. All rights reserved.
- * 
- * $Id$
+ * Copyright (C) 2011 YasminApp Team. All rights reserved.
  */
 
 package com.yasminapp.client;
