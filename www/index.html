@@ -3,31 +3,79 @@
 
 <head>
 	<meta charset="utf-8">
-
-	<title></title>
-	<meta type="description" content="">
-	<meta type="keywords" content="">
-	<meta type="author" content="">
-
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Yasmin</title>
 	
-	<script src="/js/head.min.js"></script>
-
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a3/jquery.mobile-1.0a3.min.css" />
+	<script src="http://code.jquery.com/jquery-1.5.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.0a3/jquery.mobile-1.0a3.min.js"></script>
 </head>
 
 <body>
 
-<!-- Begin Content -->
-
-<div class="bg">
+<!-- Home -->
+<div id="home" data-role="page" data-theme="e">
 	
-	<header>
+	<div data-role="header">
 		<h1>Yasmin</h1>
-	</header>
+	</div>
 	
-	<div id="channels">
-		<h2>Select Encryption Key</h2>
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true">
+			<li><a href="#encrypt">Encrypt</a></li>
+			<li><a href="#decrypt">Decrypt</a></li>
+			<li><a href="#settings">Settings</a></li>
+		</ul>
+	</div>
+
+</div>
+<!-- END Home -->
+
+<!-- Encrypt -->
+<div id="encrypt" data-role="page">
+	
+	<div data-role="header">
+		<h2>Encrypt Message</h2>
+	</div>
+	
+	<div data-role="content">
+		<form>
+			<input type="text" id="passphrase">
+			<input type="key" id="key">
+			<textarea id="plaintext"></textarea> 
+			<button id="do-encrypt">Encrypt</button>
+			<button id="clear-encrypt">Clear</button>
+		</form>
+	</div>
+	
+</div>
+<!-- END Encrypt -->
+
+<!-- Decrypt -->
+<div id="decrypt" data-role="page">
+	
+	<div data-role="header">
+		<h2>Decrypt Message</h2>
+	</div>
+	
+	<div data-role="footer">
+		<form>
+			<textarea id="cipher"></textarea>
+			<button id="do-decrypt">Decrypt</button>
+			<button id="clear-decrypt">Clear</button>
+		</form>
+	</div>
+	
+</div>
+<!-- END Decrypt -->
+
+<!-- Channels -->
+<div id="settings" data-role="page">
+	
+	<div data-role="header">
+		<h2>Setup Secure Channel</h2>
+	</div>
+	
+	<div data-role="content">
 		<select>
 			<option value="AES Key #1">AES Key #1</option>
 			<option value="AES Key #1">OTP #10</option>
@@ -44,44 +92,9 @@
 		</select>
 	</div>
 	
-	<div id="encrypt">
-		<form>
-			<h2>Encrypt</h2>
-			<input type="text" id="passphrase">
-			<input type="key" id="key">
-			<textarea id="plaintext"></textarea> 
-			<button id="do-encrypt">Encrypt</button>
-			<button id="clear-encrypt">Clear</button>
-		</form>
-	</div>
-	
-	<div id="decrypt">
-		<form>
-			<h2>Decrypt</h2>
-			<textarea id="cipher"></textarea>
-			<button id="do-decrypt">Decrypt</button>
-			<button id="clear-decrypt">Clear</button>
-		</form>
-	</div>
-	
-	<noscript>
-		<div class="noscript">
-			Your web browser must have JavaScript enabled
-			in order for this application to display correctly.
-		</div>
-	</noscript>
-
 </div>
+<!-- END Channels -->
 
-<!-- End Content / Begin JavaScript -->
-
-	<script>
-		head.js(
-			'https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js', 
-			'/js/script.js'
-		);
-	</script>
-	
 </body>
 </html>
 <!-- vim: set ts=2 sw=2 et: -->
