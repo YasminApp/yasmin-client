@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Yasmin</title>
-	
+
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a3/jquery.mobile-1.0a3.min.css" />
 	<script src="http://code.jquery.com/jquery-1.5.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.0a3/jquery.mobile-1.0a3.min.js"></script>
@@ -14,11 +14,11 @@
 
 <!-- Home -->
 <div id="home" data-role="page" data-theme="e">
-	
+
 	<div data-role="header">
 		<h1>Yasmin</h1>
 	</div>
-	
+
 	<div data-role="content">
 		<ul data-role="listview" data-inset="true">
 			<li><a href="#encrypt">Encrypt</a></li>
@@ -32,31 +32,31 @@
 
 <!-- Encrypt -->
 <div id="encrypt" data-role="page">
-	
+
 	<div data-role="header">
 		<h2>Encrypt Message</h2>
 	</div>
-	
+
 	<div data-role="content">
 		<form>
 			<input type="text" id="passphrase">
 			<input type="key" id="key">
-			<textarea id="plaintext"></textarea> 
+			<textarea id="plaintext"></textarea>
 			<button id="do-encrypt">Encrypt</button>
 			<button id="clear-encrypt">Clear</button>
 		</form>
 	</div>
-	
+
 </div>
 <!-- END Encrypt -->
 
 <!-- Decrypt -->
 <div id="decrypt" data-role="page">
-	
+
 	<div data-role="header">
 		<h2>Decrypt Message</h2>
 	</div>
-	
+
 	<div data-role="footer">
 		<form>
 			<textarea id="cipher"></textarea>
@@ -64,21 +64,22 @@
 			<button id="clear-decrypt">Clear</button>
 		</form>
 	</div>
-	
+
 </div>
 <!-- END Decrypt -->
 
 <!-- Channels -->
 <div id="settings" data-role="page">
-	
+
 	<div data-role="header">
 		<h2>Setup Secure Channel</h2>
 	</div>
-	
+
 	<div data-role="content">
 		<select>
+      <!-- Generate programmatically -->
 			<option value="AES Key #1">AES Key #1</option>
-			<option value="AES Key #1">OTP #10</option>
+			<option value="OTP #10">OTP #10</option>
 		</select>
 		<form>
 			<input name="message" placeholder="Enter your message here">
@@ -91,7 +92,7 @@
 			<option value="Facebook">Facebook</option>
 		</select>
 	</div>
-	
+
 </div>
 <!-- END Channels -->
 
