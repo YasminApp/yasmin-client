@@ -47,7 +47,7 @@ public class YasminApp implements EntryPoint {
 
     Document $doc = Document.get();
 
-    passphrase = TextBox.wrap($doc.getElementById("passphrase"));
+    // passphrase = TextBox.wrap($doc.getElementById("passphrase"));
     key = TextBox.wrap($doc.getElementById("key"));
 
     Button encryptButton = Button.wrap($doc.getElementById("encrypt"));
@@ -74,7 +74,7 @@ public class YasminApp implements EntryPoint {
       }
     });
 
-    Button decryptClearButton = Button.wrap($doc.getElementById("cipher_clear"));
+    Button decryptClearButton = Button.wrap($doc.getElementById("clear_cipher"));
     decryptClearButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         cipher.setText("");
