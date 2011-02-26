@@ -21,21 +21,49 @@
 <!-- Begin Content -->
 
 <div class="bg">
-
-<body>
-
+	
 	<header>
 		<h1>Yasmin</h1>
 	</header>
 	
-	<input type="text" id="passphrase">
-	<input type="key" id="key">
-	<textarea id="plaintext"></textarea> 
-	<button id="encrypt">Encrypt</button>
-	<button id="clear-encrypt">Clear</button>
-	<textarea id="cipher"></textarea>
-	<button id="decrypt">Decrypt</button>
-	<button id="clear-decrypt">Clear</button>
+	<div id="channels">
+		<h2>Select Encryption Key</h2>
+		<select>
+			<option value="AES Key #1">AES Key #1</option>
+			<option value="AES Key #1">OTP #10</option>
+		</select>
+		<form>
+			<input name="message" placeholder="Enter your message here">
+			<input type="submit" value="Secure Send">
+			<input type="reset" value="Erase message">
+		</form>
+		<span>Send secure message via...</span>
+		<select>
+			<option value="Twitter">Twitter</option>
+			<option value="Facebook">Facebook</option>
+		</select>
+	</div>
+	
+	<div id="encrypt">
+		<form>
+			<h2>Encrypt</h2>
+			<input type="text" id="passphrase">
+			<input type="key" id="key">
+			<textarea id="plaintext"></textarea> 
+			<button id="do-encrypt">Encrypt</button>
+			<button id="clear-encrypt">Clear</button>
+		</form>
+	</div>
+	
+	<div id="decrypt">
+		<form>
+			<h2>Decrypt</h2>
+			<textarea id="cipher"></textarea>
+			<button id="do-decrypt">Decrypt</button>
+			<button id="clear-decrypt">Clear</button>
+		</form>
+	</div>
+	
 	<noscript>
 		<div class="noscript">
 			Your web browser must have JavaScript enabled
