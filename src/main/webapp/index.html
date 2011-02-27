@@ -14,7 +14,7 @@
 
 <body>
 
-<!-- Dashboard -->
+<!-- Home -->
 <div id="home" data-role="page">
 	
 	<!-- Fading Splash Screen -->
@@ -23,7 +23,7 @@
 	</div>
 	<!-- END Splash -->
 	
-	<div data-role="header">
+	<div data-role="header" data-backbtn="false">
 		<h2>Yasmin</h2>
 	</div>
 
@@ -36,7 +36,7 @@
 	</div>
 	
 </div>
-<!-- END Dashboard -->
+<!-- END Home -->
 
 <!-- Encrypt -->
 <div id="encrypt-page" data-role="page">
@@ -103,8 +103,8 @@
 		<textarea id="cipher" placeholder="Enter secure message to decrypt"></textarea>
 
 		<select>
-      <!-- Generate programmatically -->
 			<option data-placeholder="true">Choose Channel...</option>
+      <!-- Generate programmatically -->
 			<option value="AES Key #1">AES Key #1</option>
 			<option value="OTP #10">OTP #10</option>
 		</select>
@@ -143,12 +143,16 @@
 
 	<div data-role="content">
 		<button id="generate-key">Generate Key</button>
-		<!-- Clicking this refreshes list and adds new key -->
+		<!-- Clicking this refreshes list and adds a new key below -->
 		
 		<ul data-role="listview" data-inset="true">
-      <!-- Generate programmatically -->
-			<li>AES Key #1</li>
-			<li>OTP #10</li>
+			<li data-role="list-divider">Your Keys</li>
+      <!--
+				Generate programmatically
+				Also, these are editable, no? -Yifei
+			-->
+			<li><a href="">AES Key #1</a></li>
+			<li><a href="">OTP #10</a></li>
 		</ul>
 	</div>
 
