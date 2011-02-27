@@ -39,21 +39,6 @@ package com.yasminapp.client;
   1999-05-03 lpd Original version.
  */
 public class MD5 {
-/*
- * Compile with -DTEST to create a self-contained executable test program.
- * The test program should print out the same values as given in section
- * A.5 of RFC 1321, reproduced below.
- */
-    String [] TEST_VECTORS = {
-  "", /*d41d8cd98f00b204e9800998ecf8427e*/
-  "945399884.61923487334tuvga", /*0cc175b9c0f1b6a831c399e269772661*/
-  "abc", /*900150983cd24fb0d6963f7d28e17f72*/
-  "message digest", /*f96b697d7cb7938d525a2f31aaf161d0*/
-  "abcdefghijklmnopqrstuvwxyz", /*c3fcd3d76192e4007dfb496cca67e13b*/
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-        /*d174ab98d277d9f5a5611c2c9f419d9f*/
-  "12345678901234567890123456789012345678901234567890123456789012345678901234567890" /*57edf4a22be3c955ac49da2e2107b67a*/
-    };
 
 
 
@@ -88,15 +73,23 @@ public class MD5 {
       0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1, 0xf7537e82, 0xbd3af235, 0x2ad7d2bb,
       0xeb86d391 };
 
-  final int[] X;
-  final int[] abcd;
-  final int[] count;
 
+  /** digest buffer */
+  final int[] abcd;
+
+  /** 64 byte accumulate block */
+  byte[] block;
+
+  /** message length in bits */
+  int bits;
+
+  final int[] X;
   int a, b, c, d;
   int t;
 
   public MD5() {
-      count = new int[2];
+      bits = 0;
+      block = new byte[64];
       abcd = new int[] {
           0x67452301, 0xefcdab89,
           0x98badcfe, 0x10325476
@@ -104,16 +97,15 @@ public class MD5 {
       X = new int[16];
   }
 
-  void process(byte[] block) {
+  void process(byte[] block, int offset) {
     a = abcd[0];
     b = abcd[1];
     c = abcd[2];
     d = abcd[3];
-    int off = 0;
 
     // 16 * 4 bytes (16 ints)
-    for (int i = 0; i < 16; i++, off += 4) {
-      X[i] = block[off] + (block[off+1] << 8) + (block[off+2] << 16) + (block[off+3] << 24);
+    for (int i = 0; i < 16; i++, offset += 4) {
+      X[i] = block[offset] + (block[offset+1] << 8) + (block[offset+2] << 16) + (block[offset+3] << 24);
     }
 
     r1(a, b, c, d,  0,  7,  T[0]);
@@ -230,46 +222,79 @@ public class MD5 {
     t = a + i(b, c, d) + X[k] + ti;
     a = rotateLeft(t, s) + b;
   }
-}
-/*
-void
-md5_append(md5_state_t *pms, const md5_byte_t *data, int nbytes)
-{
-    const md5_byte_t *p = data;
-    int left = nbytes;
-    int offset = (pms->count[0] >> 3) & 63;
-    md5_word_t nbits = (md5_word_t)(nbytes << 3);
 
-    if (nbytes <= 0)
-  return;
-
-    // Update the message length.
-    pms->count[1] += nbytes >> 29;
-    pms->count[0] += nbits;
-    if (pms->count[0] < nbits)
-  pms->count[1]++;
-
-     //Process an initial partial block.
-    if (offset) {
-  int copy = (offset + nbytes > 64 ? 64 - offset : nbytes);
-
-  memcpy(pms->buf + offset, p, copy);
-  if (offset + copy < 64)
+  public void update(byte[] data, int offset, int len) {
+    int left = len;
+    int off = (bits / 8) % 64; // offset within the current block (bytes)
+    int inputBits = len * 8;
+    if (len <= 0)
       return;
-  p += copy;
-  left -= copy;
-  md5_process(pms, pms->buf);
+
+    bits += inputBits;
+
+    if (off > 0) {
+      // Process an initial partial block.
+      int copy = (off + len > 64 ? 64 - off : len);
+      System.arraycopy(data, offset, block, off, copy);
+
+      // return if still no full block to process
+      if (off + copy < 64)
+        return;
+
+      offset += copy;
+      left -= copy;
+      process(block, 0);
     }
 
-    // Process full blocks.
-    for (; left >= 64; p += 64, left -= 64)
-  md5_process(pms, p);
+    // Process full blocks
+    for (; left >= 64; offset += 64, left -= 64) {
+      process(data, offset);
+    }
 
-    // Process a final partial block.
-    if (left)
-  memcpy(pms->buf, p, left);
+    // Process a final partial block
+    if (left > 0) {
+      System.arraycopy(data, offset, block, 0, left);
+    }
+  }
+
+  public byte[] finish() {
+    final byte[] digest = new byte[16];
+    final byte pad[] = {
+        (byte) 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0 };
+
+    // only counts 2^31 of bits (up to 536,870,911 bytes of data)
+    // should be sufficient for now ;-)
+    byte[] data = {
+        (byte) (bits & 0xff),
+        (byte) ((bits >> 8) & 0xff),
+        (byte) ((bits >> 16) & 0xff),
+        (byte) ((bits >> 24) & 0xff),
+        0,
+        0,
+        0,
+        0
+    };
+    int i;
+
+    int off = (bits / 8) % 64;
+    int padlen = (off < 56) ? (56 - off) : (120 - off);
+
+    /* Pad to 56 bytes mod 64. */
+    update(pad, padlen, 0);
+
+    /* Append the length. */
+    update(data, 0, 8);
+
+    for (i = 0; i < 16; ++i) {
+      digest[i] = (byte) (abcd[i >> 2] >> ((i & 3) << 3));
+    }
+    return digest;
+  }
 }
 
+/*
 void
 md5_finish(md5_state_t *pms, md5_byte_t digest[16])
 {

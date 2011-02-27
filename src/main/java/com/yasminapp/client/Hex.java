@@ -51,6 +51,12 @@ public class Hex {
         sb.append(ch);
       }
     }
+
+    // pad
+    if (sb.length() % 2 != 0) {
+      sb.insert(0, '0');
+    }
+
     byte[] bytes = new byte[sb.length() / 2];
     char[] chars = sb.toString().toCharArray();
 
