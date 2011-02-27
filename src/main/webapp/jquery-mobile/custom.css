@@ -16,6 +16,9 @@
 /* Custom Code
 -----------------------------------------------------------------------------------------------------------*/
 
+/* Height control */
+html, body, div[data-role="page"] { height: 100% }
+
 /* A really pretty splash screen */
 #home { background: #141 url(images/bg.jpg) no-repeat bottom right; }
 #home h1 {
