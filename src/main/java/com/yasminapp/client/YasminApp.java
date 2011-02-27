@@ -23,7 +23,8 @@ public class YasminApp implements EntryPoint {
   private TextArea plaintext;
   private TextArea cipher;
 
-  public YasminApp() {}
+  public YasminApp() {
+  }
 
   public void onModuleLoad() {
     // Set up uncaught exception handler
@@ -39,15 +40,15 @@ public class YasminApp implements EntryPoint {
 
     // temp variable used for null checking
     Element e = $doc.getElementById("passphrase").cast();
-    assert(e != null);
+    assert (e != null);
     passphrase = TextBox.wrap(e);
 
     e = $doc.getElementById("key").cast();
-    assert(e != null);
+    assert (e != null);
     key = TextBox.wrap(e);
 
     e = $doc.getElementById("do-encrypt").cast();
-    assert(e != null);
+    assert (e != null);
     Button encryptButton = Button.wrap(e);
     encryptButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
@@ -56,15 +57,15 @@ public class YasminApp implements EntryPoint {
     });
 
     e = $doc.getElementById("plaintext").cast();
-    assert(e != null);
+    assert (e != null);
     plaintext = TextArea.wrap(e);
 
     e = $doc.getElementById("cipher").cast();
-    assert(e != null);
+    assert (e != null);
     cipher = TextArea.wrap(e);
 
     e = $doc.getElementById("clear-encrypt").cast();
-    assert(e != null);
+    assert (e != null);
     Button encryptClearButton = Button.wrap(e);
     encryptClearButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
@@ -73,7 +74,7 @@ public class YasminApp implements EntryPoint {
     });
 
     e = $doc.getElementById("do-decrypt").cast();
-    assert(e != null);
+    assert (e != null);
     Button decryptButton = Button.wrap(e);
     decryptButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
@@ -82,11 +83,20 @@ public class YasminApp implements EntryPoint {
     });
 
     e = $doc.getElementById("clear-decrypt").cast();
-    assert(e != null);
+    assert (e != null);
     Button decryptClearButton = Button.wrap(e);
     decryptClearButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         cipher.setText("");
+      }
+    });
+
+    e = $doc.getElementById("generate-key").cast();
+    assert (e != null);
+    Button generateKey = Button.wrap(e);
+    generateKey.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent e) {
+        generate_key();
       }
     });
   }
@@ -100,6 +110,18 @@ public class YasminApp implements EntryPoint {
     return out;
   }
 
+  public String generate_key() {
+    return new String("No key for you! :D~~~~~~~~~~~~~~");
+  }
+
+  public void store_keys(String[] keylist) {
+    alert("Implement me, bitches!");
+  }
+
+  public String[] load_keys() {
+    return new String[] { "This", "space", "intentionally", "left", "blank" };
+  }
+
   public void encrypt() {
     byte[] keyBytes = Hex.fromHex(key.getText());
     AES aes = new AES();
@@ -110,7 +132,7 @@ public class YasminApp implements EntryPoint {
     inputBytes = UTF8.encode(plaintext.getValue());
     // (optional): compress
     int len = inputBytes.length;
-    
+
     if (len % AES_BLOCK_SIZE > 0) {
       len = ((len / AES_BLOCK_SIZE) + 1) * AES_BLOCK_SIZE;
     }
