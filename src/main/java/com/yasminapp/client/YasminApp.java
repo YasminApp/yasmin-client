@@ -104,29 +104,33 @@ public class YasminApp implements EntryPoint {
     });
   }
 
+  byte[] padToLength(byte[] in, int len) {
+    byte[] out = in;
+    if (in.length < len) {
+      out = new byte[len];
+      System.arraycopy(in, 0, out, 0, in.length);
+    }
+    return out;
+  }
+
   public void encrypt() {
     byte[] keyBytes = Hex.fromHex(key.getText());
-    cipher.setValue(transform(keyBytes, plaintext.getValue(), true));
-  }
-
-  public void decrypt() {
-    byte[] keyBytes = Hex.fromHex(key.getText());
-    plaintext.setValue(transform(keyBytes, cipher.getValue(), false));
-  }
-
-  public static String transform(byte[] key, String plaintext, boolean encrypt) {
+    String plaintext1 = plaintext.getValue();
     AES aes = new AES();
-    aes.init(encrypt, key);
+    aes.init(true, keyBytes);
     int offset = 0;
     byte[] inputBytes;
-    if (encrypt) {
-      inputBytes = UTF8.encode(plaintext);
-      // (optional): compress
-    } else {
-      inputBytes = Base64.decode(plaintext);
-      // (optional): decompress
-    }
+
+    inputBytes = UTF8.encode(plaintext1);
+    // (optional): compress
     int len = inputBytes.length;
+    
+    if (len % AES_BLOCK_SIZE > 0) {
+      len = ((len / AES_BLOCK_SIZE) + 1) * AES_BLOCK_SIZE;
+    }
+
+    inputBytes = padToLength(inputBytes, len);
+
     byte[] cipherBytes = new byte[len];
     while (offset + AES_BLOCK_SIZE <= len) {
       aes.processBlock(inputBytes, offset, cipherBytes, offset);
@@ -135,18 +139,36 @@ public class YasminApp implements EntryPoint {
     int remainder = len % AES_BLOCK_SIZE;
     if (remainder > 0) {
       byte[] padded = new byte[AES_BLOCK_SIZE];
-      System.arraycopy(inputBytes, offset, padded, 0, AES_BLOCK_SIZE - remainder);
-      aes.processBlock(padded, 0, cipherBytes, offset);
+      System.arraycopy(inputBytes, offset, padded, 0, remainder);
+      aes.processBlock(padded, 0, cipherBytes, 0);
     }
-    String result;
-    if (encrypt) {
-      // (optional): compress
-      result = Base64.encode(cipherBytes);
-    } else {
-      // (optional): decompress
-      result = UTF8.decode(cipherBytes);
+    String result = Base64.encode(cipherBytes);
+    cipher.setValue(result);
+  }
+
+  public void decrypt() {
+    byte[] keyBytes = Hex.fromHex(key.getText());
+    String plaintext1 = cipher.getValue();
+    AES aes = new AES();
+    aes.init(false, keyBytes);
+    int offset = 0;
+    byte[] cipherTextBytes;
+    cipherTextBytes = Base64.decode(plaintext1);
+    // (optional): decompress
+
+    int len = cipherTextBytes.length;
+    int remainder = len % AES_BLOCK_SIZE;
+    if (remainder != 0) {
+      alert("Invalid ciphertext!");
+      return;
     }
-    return result;
+    byte[] plainTextBytes = new byte[len];
+    while (offset + AES_BLOCK_SIZE <= len) {
+      aes.processBlock(cipherTextBytes, offset, plainTextBytes, offset);
+      offset += AES_BLOCK_SIZE; // AES block size
+    }
+    String result = UTF8.decode(plainTextBytes);
+    plaintext.setValue(result);
   }
 
   public native void alert(String msg) /*-{
