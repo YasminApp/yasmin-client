@@ -6,7 +6,7 @@ public class Base64 {
 
   private static final byte[] VALUES = new byte[128];
   static {
-    for (int i = 0; i < 64; i++) {
+    for (int i = 0; i < ALPHABET.length; i++) {
       VALUES[ALPHABET[i]] = (byte) i;
     }
   }
