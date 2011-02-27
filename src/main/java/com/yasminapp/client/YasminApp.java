@@ -11,6 +11,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -19,7 +20,8 @@ public class YasminApp implements EntryPoint {
   private static final int AES_BLOCK_SIZE = 16;
 
   private TextBox passphrase;
-  private TextBox key;
+  private ListBox keylist_enc;
+  private ListBox keylist_dec;
   private TextArea plaintext;
   private TextArea cipher;
 
@@ -43,9 +45,10 @@ public class YasminApp implements EntryPoint {
     assert (e != null);
     passphrase = TextBox.wrap(e);
 
-    e = $doc.getElementById("key").cast();
-    assert (e != null);
-    key = TextBox.wrap(e);
+    /*
+     * e = $doc.getElementById("key").cast(); assert (e != null); key =
+     * TextBox.wrap(e);
+     */
 
     e = $doc.getElementById("do-encrypt").cast();
     assert (e != null);
@@ -99,6 +102,23 @@ public class YasminApp implements EntryPoint {
         generate_key();
       }
     });
+
+    String[] keys = load_keys();
+    e = $doc.getElementById("keylist-enc").cast();
+    assert (e != null);
+    ListBox keylist_enc = new ListBox();
+    for (String key : keys) {
+      keylist_enc.addItem(key);
+    }
+    keylist_enc.setVisibleItemCount(1);
+
+    e = $doc.getElementById("keylist-edec").cast();
+    assert (e != null);
+    ListBox keylist_dec = new ListBox();
+    for (String key : keys) {
+      keylist_dec.addItem(key);
+    }
+    keylist_dec.setVisibleItemCount(keys.length);
   }
 
   byte[] padToLength(byte[] in, int len) {
@@ -123,7 +143,8 @@ public class YasminApp implements EntryPoint {
   }
 
   public void encrypt() {
-    byte[] keyBytes = Hex.fromHex(key.getText());
+    String key = keylist_enc.getValue(keylist_enc.getSelectedIndex());
+    byte[] keyBytes = Hex.fromHex(key);
     AES aes = new AES();
     aes.init(true, keyBytes);
     int offset = 0;
@@ -156,7 +177,8 @@ public class YasminApp implements EntryPoint {
   }
 
   public void decrypt() {
-    byte[] keyBytes = Hex.fromHex(key.getText());
+    String key = keylist_dec.getValue(keylist_enc.getSelectedIndex());
+    byte[] keyBytes = Hex.fromHex(key);
     AES aes = new AES();
     aes.init(false, keyBytes);
     int offset = 0;

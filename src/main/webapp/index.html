@@ -47,7 +47,7 @@
 
 	<div data-role="content">
 		<input type="text" id="passphrase" placeholder="passphrase">
-		<input type="key" id="key" placeholder="key">
+    <select id="keylist-enc"></select>
 		<textarea id="plaintext" placeholder="Enter your message here"></textarea>
 		<button id="do-encrypt">Encrypt</button>
 		<button id="clear-encrypt">Clear</button>
@@ -64,6 +64,7 @@
 	</div>
 
 	<div data-role="content">
+    <select id="keylist-dec"></select>
 		<textarea id="cipher" placeholder="Enter secure message to decrypt"></textarea>
 		<button id="do-decrypt">Decrypt</button>
 		<button id="clear-decrypt">Clear</button>
