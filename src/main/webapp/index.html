@@ -31,7 +31,7 @@
 		<ul data-role="listview" data-inset="true">
 			<li><a href="#encrypt-page">Encrypt Message</a></li>
 			<li><a href="#decrypt-page">Decrypt Message</a></li>
-			<li data-icon="gear"><a href="#settings-page">Setup Secure Channel</a></li>
+			<li data-icon="gear"><a href="#settings-page">Manage Secure Keys</a></li>
 		</ul>
 	</div>
 	
@@ -43,7 +43,7 @@
 
 	<div data-role="header">
 		<a href="#home" data-direction="reverse" data-icon="delete">Cancel</a>
-		<h2>Encrypt Message</h2>
+		<h2>Encrypt</h2>
 		<a href="#encrypted-page" data-icon="arrow-r" data-iconpos="right">Encrypt</a>
 	</div>
 
@@ -59,7 +59,7 @@
 			<option value="OTP #10">OTP #10</option>
 		</select>
 		
-		<a href="#encrypted-page" id="encrypt" data-role="button">Encrypt</a>
+		<a href="#encrypted-page" id="encrypt" data-role="button" data-theme="e">Encrypt</a>
 	</div>
 
 </div>
@@ -70,7 +70,7 @@
 
 	<div data-role="header">
 		<a href="#encrypt-page" data-direction="reverse" data-icon="arrow-l">Back</a>
-		<h2>Encrypted Message</h2>
+		<h2>Encrypted</h2>
 		<a href="#home" data-direction="reverse" data-icon="home">Home</a>
 	</div>
 	
@@ -79,12 +79,12 @@
 		
 		<button id="clear-encrypted">Clear</button>
 		
-		<select>
+		<!--<select data-theme="e">
 			<option data-placeholder="true">Copy and Send</option>
 			<option value="Email">Email</option>
 			<option value="Twitter">Twitter</option>
 			<option value="Facebook">Facebook</option>
-		</select>
+		</select>-->
 	</div>
 
 </div>
@@ -95,7 +95,7 @@
 
 	<div data-role="header">
 		<a href="#home" data-direction="reverse" data-icon="delete">Cancel</a>
-		<h2>Decrypt Message</h2>
+		<h2>Decrypt</h2>
 		<a href="#decrypted-page" data-icon="arrow-r" data-iconpos="right">Decrypt</a>
 	</div>
 
@@ -109,7 +109,7 @@
 			<option value="OTP #10">OTP #10</option>
 		</select>
 		
-		<a href="#decrypted-page" data-role="button" id="do-decrypt">Decrypt</a>
+		<a href="#decrypted-page" data-role="button" id="do-decrypt" data-theme="e">Decrypt</a>
 	</div>
 	
 </div>
@@ -120,7 +120,7 @@
 
 	<div data-role="header">
 		<a href="#decrypt-page" data-direction="reverse" data-icon="arrow-l">Back</a>
-		<h2>Decrypted Message</h2>
+		<h2>Decrypted</h2>
 		<a href="#home" data-direction="reverse" data-icon="home">Home</a>
 	</div>
 	
@@ -138,7 +138,7 @@
 
 	<div data-role="header">
 		<a href="#home" data-direction="reverse" data-icon="arrow-l">Back</a>
-		<h2>Secure Channel</h2>
+		<h2>Secure Keys</h2>
 	</div>
 
 	<div data-role="content">
