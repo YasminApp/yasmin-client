@@ -11,30 +11,19 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
 public class YasminApp implements EntryPoint {
 
   private static final int AES_BLOCK_SIZE = 16;
-  private final TextArea leftWindow = new TextArea();
-  private final TextArea rightWindow = new TextArea();
 
-  private final SimplePanel leftSizePanel = new SimplePanel();
-  private final SimplePanel rightSizePanel = new SimplePanel();
-  private boolean encrypting;
   private TextBox passphrase;
   private TextBox key;
   private TextArea plaintext;
   private TextArea cipher;
 
-  public YasminApp() {
-    this.leftWindow.setCharacterWidth(70);
-    this.leftWindow.setVisibleLines(25);
-    this.rightWindow.setCharacterWidth(70);
-    this.rightWindow.setVisibleLines(25);
-  }
+  public YasminApp() {}
 
   public void onModuleLoad() {
     // Set up uncaught exception handler
@@ -49,15 +38,13 @@ public class YasminApp implements EntryPoint {
     Document $doc = Document.get();
 
     // temp variable used for null checking
-    Element e;
-    
-    e = $doc.getElementById("passphrase").cast();
+    Element e = $doc.getElementById("passphrase").cast();
     assert(e != null);
-    TextBox passphrase = TextBox.wrap(e);
+    passphrase = TextBox.wrap(e);
 
     e = $doc.getElementById("key").cast();
     assert(e != null);
-	TextBox key = TextBox.wrap(e);
+    key = TextBox.wrap(e);
 
     e = $doc.getElementById("do-encrypt").cast();
     assert(e != null);
@@ -70,11 +57,11 @@ public class YasminApp implements EntryPoint {
 
     e = $doc.getElementById("plaintext").cast();
     assert(e != null);
-    final TextArea plaintext = TextArea.wrap(e);
+    plaintext = TextArea.wrap(e);
 
     e = $doc.getElementById("cipher").cast();
     assert(e != null);
-    final TextArea cipher = TextArea.wrap(e);
+    cipher = TextArea.wrap(e);
 
     e = $doc.getElementById("clear-encrypt").cast();
     assert(e != null);
@@ -115,13 +102,12 @@ public class YasminApp implements EntryPoint {
 
   public void encrypt() {
     byte[] keyBytes = Hex.fromHex(key.getText());
-    String plaintext1 = plaintext.getValue();
     AES aes = new AES();
     aes.init(true, keyBytes);
     int offset = 0;
     byte[] inputBytes;
 
-    inputBytes = UTF8.encode(plaintext1);
+    inputBytes = UTF8.encode(plaintext.getValue());
     // (optional): compress
     int len = inputBytes.length;
     
@@ -143,17 +129,17 @@ public class YasminApp implements EntryPoint {
       aes.processBlock(padded, 0, cipherBytes, 0);
     }
     String result = Base64.encode(cipherBytes);
+    plaintext.setValue(result);
     cipher.setValue(result);
   }
 
   public void decrypt() {
     byte[] keyBytes = Hex.fromHex(key.getText());
-    String plaintext1 = cipher.getValue();
     AES aes = new AES();
     aes.init(false, keyBytes);
     int offset = 0;
     byte[] cipherTextBytes;
-    cipherTextBytes = Base64.decode(plaintext1);
+    cipherTextBytes = Base64.decode(cipher.getValue());
     // (optional): decompress
 
     int len = cipherTextBytes.length;
