@@ -16,6 +16,17 @@
 /* Custom Code
 -----------------------------------------------------------------------------------------------------------*/
 
+/* A really pretty splash screen */
+#home { background: #141 url(images/bg.jpg) no-repeat bottom right; }
+#home h1 {
+	color: #fff;
+	font-family: Calligraphy, Georgia, serif;
+	font-weight: normal;
+	letter-spacing: -1px;
+	text-align: center;
+	text-shadow: rgba(0,0,0,.5) 2px 2px 3px;
+}
+/* Hide the back link on #dashboard */
 #dashboard a[data-rel='back'] { display: none; }
 
 /* A (header-default: 282 to 185f18 )

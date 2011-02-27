@@ -48,18 +48,15 @@
 	</div>
 
 	<div data-role="content">
-		<form>
-			<input type="text" id="passphrase">
-			<input type="key" id="key">
-			<textarea id="plaintext"></textarea>
-			<button id="do-encrypt">Encrypt</button>
-			<button id="clear-encrypt">Clear</button>
-		</form>
+		<input type="text" id="passphrase">
+		<input type="key" id="key">
+		<textarea id="plaintext"></textarea>
+		<button id="do-encrypt">Encrypt</button>
+		<button id="clear-encrypt">Clear</button>
 	</div>
 
 </div>
 <!-- END Encrypt -->
-
 
 <!-- Decrypt -->
 <div id="decrypt" data-role="page">
@@ -69,11 +66,9 @@
 	</div>
 
 	<div data-role="content">
-		<form>
-			<textarea id="cipher"></textarea>
-			<button id="do-decrypt">Decrypt</button>
-			<button id="clear-decrypt">Clear</button>
-		</form>
+		<textarea id="cipher"></textarea>
+		<button id="do-decrypt">Decrypt</button>
+		<button id="clear-decrypt">Clear</button>
 	</div>
 
 </div>
@@ -92,11 +87,9 @@
 			<option value="AES Key #1">AES Key #1</option>
 			<option value="OTP #10">OTP #10</option>
 		</select>
-		<form>
-			<input name="message" placeholder="Enter your message here">
-			<input type="submit" value="Secure Send">
-			<input type="reset" value="Erase message">
-		</form>
+		<input name="message" placeholder="Enter your message here">
+		<input type="submit" value="Secure Send">
+		<input type="reset" value="Erase message">
 		<span>Send secure message via...</span>
 		<select>
 			<option value="Twitter">Twitter</option>
