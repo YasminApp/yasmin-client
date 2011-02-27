@@ -42,11 +42,16 @@
 <div id="encrypt-page" data-role="page">
 
 	<div data-role="header">
+		<a href="#home" data-direction="reverse" data-icon="delete">Cancel</a>
 		<h2>Encrypt Message</h2>
-		<a data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
+		<a href="#encrypted-page" data-icon="arrow-r" data-iconpos="right">Encrypt</a>
 	</div>
 
 	<div data-role="content">
+		<textarea id="not-encrypted" placeholder="Enter your message..."></textarea>
+		
+		<input type="text" id="passphrase" placeholder="Enter passphrase...">
+			
 		<select>
       <!-- Generate programmatically -->
 			<option data-placeholder="true">Choose Channel...</option>
@@ -54,47 +59,49 @@
 			<option value="OTP #10">OTP #10</option>
 		</select>
 		
-		<input type="text" id="passphrase" placeholder="Enter passphrase...">
-		
-		<textarea id="not-encrypted" placeholder="Enter your message here"></textarea>
-		<a href="#message-page" id="encrypt" data-role="button">Encrypt</a>
-		
+		<a href="#encrypted-page" id="encrypt" data-role="button">Encrypt</a>
 	</div>
 
 </div>
 <!-- END Encrypt -->
 
-<!-- Message -->
-<div id="message-page" data-role="page">
+<!-- Encrypted Message -->
+<div id="encrypted-page" data-role="page">
 
 	<div data-role="header">
+		<a href="#encrypt-page" data-direction="reverse" data-icon="arrow-l">Back</a>
 		<h2>Encrypted Message</h2>
+		<a href="#home" data-direction="reverse" data-icon="home">Home</a>
 	</div>
 	
 	<div data-role="content">
-		<textarea id="encrypted" placeholder="Enter your message here"></textarea>
+		<textarea id="encrypted"><!-- Add ecrypted message here --></textarea>
 		
-		<button id="clear-encrypted" data-inline="true">Clear</button>
-		<button id="copy-encrypted" data-inline="true">Copy</button>
+		<button id="clear-encrypted">Clear</button>
 		
 		<select>
-			<option data-placeholder="true">Quick Send</option>
+			<option data-placeholder="true">Copy and Send</option>
+			<option value="Email">Email</option>
 			<option value="Twitter">Twitter</option>
 			<option value="Facebook">Facebook</option>
 		</select>
 	</div>
 
 </div>
-<!-- END Message -->
+<!-- END Encrypted Message -->
 
 <!-- Decrypt -->
 <div id="decrypt-page" data-role="page">
 
 	<div data-role="header">
+		<a href="#home" data-direction="reverse" data-icon="delete">Cancel</a>
 		<h2>Decrypt Message</h2>
+		<a href="#decrypted-page" data-icon="arrow-r" data-iconpos="right">Decrypt</a>
 	</div>
 
 	<div data-role="content">
+		<textarea id="cipher" placeholder="Enter secure message to decrypt"></textarea>
+
 		<select>
       <!-- Generate programmatically -->
 			<option data-placeholder="true">Choose Channel...</option>
@@ -102,28 +109,47 @@
 			<option value="OTP #10">OTP #10</option>
 		</select>
 		
-		<textarea id="cipher" placeholder="Enter secure message to decrypt"></textarea>
-		<button id="do-decrypt">Decrypt</button>
+		<a href="#decrypted-page" data-role="button" id="do-decrypt">Decrypt</a>
 	</div>
 	
 </div>
 <!-- END Decrypt -->
 
+<!-- Decrypted Message -->
+<div id="decrypted-page" data-role="page">
+
+	<div data-role="header">
+		<a href="#decrypt-page" data-direction="reverse" data-icon="arrow-l">Back</a>
+		<h2>Decrypted Message</h2>
+		<a href="#home" data-direction="reverse" data-icon="home">Home</a>
+	</div>
+	
+	<div data-role="content">
+		<textarea id="decrypted"><!-- Add derypted message here --></textarea>
+		
+		<button id="clear-decrypted">Clear</button>
+	</div>
+
+</div>
+<!-- END Decrypted Message -->
+
 <!-- Channels -->
 <div id="settings-page" data-role="page">
 
 	<div data-role="header">
+		<a href="#home" data-direction="reverse" data-icon="arrow-l">Back</a>
 		<h2>Secure Channel</h2>
 	</div>
 
 	<div data-role="content">
-		<select>
+		<button id="generate-key">Generate Key</button>
+		<!-- Clicking this refreshes list and adds new key -->
+		
+		<ul data-role="listview" data-inset="true">
       <!-- Generate programmatically -->
-			<option data-placeholder="true">Choose Channel...</option>
-			<option value="AES Key #1">AES Key #1</option>
-			<option value="OTP #10">OTP #10</option>
-		</select>
-		<button id="generate-key">Generate Channel</button>
+			<li>AES Key #1</li>
+			<li>OTP #10</li>
+		</ul>
 	</div>
 
 </div>
