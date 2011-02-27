@@ -90,6 +90,15 @@ public class YasminApp implements EntryPoint {
         cipher.setText("");
       }
     });
+
+    e = $doc.getElementById("generate-key").cast();
+    assert (e != null);
+    Button generateKey = Button.wrap(e);
+    generateKey.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent e) {
+        generate_key();
+      }
+    });
   }
 
   byte[] padToLength(byte[] in, int len) {
@@ -99,6 +108,18 @@ public class YasminApp implements EntryPoint {
       System.arraycopy(in, 0, out, 0, in.length);
     }
     return out;
+  }
+
+  public String generate_key() {
+    return new String("No key for you! :D~~~~~~~~~~~~~~");
+  }
+
+  public void store_keys(String[] keylist) {
+    alert("Implement me, bitches!");
+  }
+
+  public String[] load_keys() {
+    return new String[] { "This", "space", "intentionally", "left", "blank" };
   }
 
   public void encrypt() {
