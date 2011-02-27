@@ -29,9 +29,9 @@
 
 	<div data-role="content">
 		<ul data-role="listview" data-inset="true">
-			<li><a href="#encrypt">Encrypt</a></li>
-			<li><a href="#decrypt">Decrypt</a></li>
-			<li><a href="#settings">Settings</a></li>
+			<li><a href="#encrypt-page">Encrypt Message</a></li>
+			<li><a href="#decrypt-page">Decrypt Message</a></li>
+			<li data-icon="gear"><a href="#settings-page">Setup Secure Channel</a></li>
 		</ul>
 	</div>
 	
@@ -39,60 +39,91 @@
 <!-- END Dashboard -->
 
 <!-- Encrypt -->
-<div id="encrypt" data-role="page">
+<div id="encrypt-page" data-role="page">
 
 	<div data-role="header">
 		<h2>Encrypt Message</h2>
+		<a data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
 	</div>
 
 	<div data-role="content">
-		<input type="text" id="passphrase" placeholder="passphrase">
-		<input type="key" id="key" placeholder="key">
-		<textarea id="plaintext" placeholder="Enter your message here"></textarea>
-		<button id="do-encrypt">Encrypt</button>
-		<button id="clear-encrypt">Clear</button>
+		<select>
+      <!-- Generate programmatically -->
+			<option data-placeholder="true">Choose Channel...</option>
+			<option value="AES Key #1">AES Key #1</option>
+			<option value="OTP #10">OTP #10</option>
+		</select>
+		
+		<input type="text" id="passphrase" placeholder="Enter passphrase...">
+		
+		<textarea id="not-encrypted" placeholder="Enter your message here"></textarea>
+		<a href="#message-page" id="encrypt" data-role="button">Encrypt</a>
+		
 	</div>
 
 </div>
 <!-- END Encrypt -->
 
+<!-- Message -->
+<div id="message-page" data-role="page">
+
+	<div data-role="header">
+		<h2>Encrypted Message</h2>
+	</div>
+	
+	<div data-role="content">
+		<textarea id="encrypted" placeholder="Enter your message here"></textarea>
+		
+		<button id="clear-encrypted" data-inline="true">Clear</button>
+		<button id="copy-encrypted" data-inline="true">Copy</button>
+		
+		<select>
+			<option data-placeholder="true">Quick Send</option>
+			<option value="Twitter">Twitter</option>
+			<option value="Facebook">Facebook</option>
+		</select>
+	</div>
+
+</div>
+<!-- END Message -->
+
 <!-- Decrypt -->
-<div id="decrypt" data-role="page">
+<div id="decrypt-page" data-role="page">
 
 	<div data-role="header">
 		<h2>Decrypt Message</h2>
 	</div>
 
 	<div data-role="content">
+		<select>
+      <!-- Generate programmatically -->
+			<option data-placeholder="true">Choose Channel...</option>
+			<option value="AES Key #1">AES Key #1</option>
+			<option value="OTP #10">OTP #10</option>
+		</select>
+		
 		<textarea id="cipher" placeholder="Enter secure message to decrypt"></textarea>
 		<button id="do-decrypt">Decrypt</button>
-		<button id="clear-decrypt">Clear</button>
 	</div>
 	
 </div>
 <!-- END Decrypt -->
 
 <!-- Channels -->
-<div id="settings" data-role="page">
+<div id="settings-page" data-role="page">
 
 	<div data-role="header">
-		<h2>Setup Secure Channel</h2>
+		<h2>Secure Channel</h2>
 	</div>
 
 	<div data-role="content">
 		<select>
       <!-- Generate programmatically -->
+			<option data-placeholder="true">Choose Channel...</option>
 			<option value="AES Key #1">AES Key #1</option>
 			<option value="OTP #10">OTP #10</option>
 		</select>
-		<input name="message" placeholder="Enter your message here">
-		<input type="submit" value="Secure Send">
-		<input type="reset" value="Erase message">
-		<span>Send secure message via...</span>
-		<select>
-			<option value="Twitter">Twitter</option>
-			<option value="Facebook">Facebook</option>
-		</select>
+		<button id="generate-key">Generate Channel</button>
 	</div>
 
 </div>
