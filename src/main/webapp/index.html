@@ -1,24 +1,118 @@
-<!doctype html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" language="javascript" src="yasmin/yasmin.nocache.js"></script>
-  </head>
-  <body>
-  	<input type="text" id="passphrase">
-  	<input type="key" id="key">
-  	<textarea id="plaintext"></textarea> 
-  	<button id="encrypt">Encrypt</button>
-  	<button id="clear_plaintext">Encrypt</button>
-  	<textarea id="cipher"></textarea>
-  	<button id="decrypt">Decrypt</button>
-  	<button id="clear_cipher">Decrypt</button>
-    <noscript>
-      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-        Your web browser must have JavaScript enabled
-        in order for this application to display correctly.
-      </div>
-    </noscript>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+	<title>Yasmin</title>
+
+	<link rel="stylesheet" href="jquery-mobile/custom.css">
+  <script type="text/javascript" language="javascript" src="yasmin/yasmin.nocache.js"></script>
+	<script src="jquery-mobile/jquery-1.5.1.min.js"></script>
+	<script src="jquery-mobile/custom.js"></script>
+	<script src="jquery-mobile/jquery.mobile-1.0a3.min.js"></script>
+</head>
+
+<body>
+
+<!-- Home -->
+<div id="home" data-role="page">
+	<div data-role="content">
+		<h1>Yasmin</h1>
+	</div>
+</div>
+<!-- END Home -->
+
+<!-- Dashboard -->
+<div id="dashboard" data-role="page">
+
+	<div data-role="header">
+		<h2>Yasmin</h2>
+	</div>
+
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true">
+			<li><a href="#encrypt">Encrypt</a></li>
+			<li><a href="#decrypt">Decrypt</a></li>
+			<li><a href="#settings">Settings</a></li>
+		</ul>
+	</div>
+
+</div>
+<!-- END Dashboard -->
+
+<!-- Encrypt -->
+<div id="encrypt" data-role="page">
+
+	<div data-role="header">
+		<h2>Encrypt Message</h2>
+	</div>
+
+	<div data-role="content">
+		<form>
+			<input type="text" id="passphrase" placeholder="passphrase">
+			<input type="key" id="key" placeholder="key">
+			<textarea id="plaintext" placeholder="Enter your message here"></textarea>
+			<button id="do-encrypt">Encrypt</button>
+			<button id="clear-encrypt">Clear</button>
+		</form>
+	</div>
+
+</div>
+<!-- END Encrypt -->
+
+
+<!-- Decrypt -->
+<div id="decrypt" data-role="page">
+
+	<div data-role="header">
+		<h2>Decrypt Message</h2>
+	</div>
+
+	<div data-role="content">
+		<form>
+			<textarea id="cipher" placeholder="Enter secure message to decrypt"></textarea>
+			<button id="do-decrypt">Decrypt</button>
+			<button id="clear-decrypt">Clear</button>
+		</form>
+	</div>
+
+</div>
+<!-- END Decrypt -->
+
+<!-- Channels -->
+<div id="settings" data-role="page">
+
+	<div data-role="header">
+		<h2>Setup Secure Channel</h2>
+	</div>
+
+	<div data-role="content">
+		<select>
+      <!-- Generate programmatically -->
+			<option value="AES Key #1">AES Key #1</option>
+			<option value="OTP #10">OTP #10</option>
+		</select>
+		<form>
+			<input name="message" placeholder="Enter your message here">
+			<input type="submit" value="Secure Send">
+			<input type="reset" value="Erase message">
+		</form>
+		<span>Send secure message via...</span>
+		<select>
+			<option value="Twitter">Twitter</option>
+			<option value="Facebook">Facebook</option>
+		</select>
+	</div>
+
+</div>
+<!-- END Channels -->
+
+<noscript>
+  <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+    Your web browser must have JavaScript enabled
+    in order for this application to display correctly.
+  </div>
+</noscript>
+</body>
 </html>
 <!-- vim: set ts=2 sw=2 et: -->

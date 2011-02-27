@@ -9,6 +9,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextArea;
@@ -47,34 +48,55 @@ public class YasminApp implements EntryPoint {
 
     Document $doc = Document.get();
 
-    // passphrase = TextBox.wrap($doc.getElementById("passphrase"));
-    key = TextBox.wrap($doc.getElementById("key"));
+    // temp variable used for null checking
+    Element e;
+    
+    e = $doc.getElementById("passphrase").cast();
+    assert(e != null);
+    TextBox passphrase = TextBox.wrap(e);
 
-    Button encryptButton = Button.wrap($doc.getElementById("encrypt"));
+    e = $doc.getElementById("key").cast();
+    assert(e != null);
+	TextBox key = TextBox.wrap(e);
+
+    e = $doc.getElementById("do-encrypt").cast();
+    assert(e != null);
+    Button encryptButton = Button.wrap(e);
     encryptButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         encrypt();
       }
     });
 
-    plaintext = TextArea.wrap($doc.getElementById("plaintext"));
-    cipher = TextArea.wrap($doc.getElementById("cipher"));
+    e = $doc.getElementById("plaintext").cast();
+    assert(e != null);
+    final TextArea plaintext = TextArea.wrap(e);
 
-    Button encryptClearButton = Button.wrap($doc.getElementById("clear_plaintext"));
+    e = $doc.getElementById("cipher").cast();
+    assert(e != null);
+    final TextArea cipher = TextArea.wrap(e);
+
+    e = $doc.getElementById("clear-encrypt").cast();
+    assert(e != null);
+    Button encryptClearButton = Button.wrap(e);
     encryptClearButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         plaintext.setText("");
       }
     });
 
-    Button decryptButton = Button.wrap($doc.getElementById("decrypt"));
+    e = $doc.getElementById("do-decrypt").cast();
+    assert(e != null);
+    Button decryptButton = Button.wrap(e);
     decryptButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         decrypt();
       }
     });
 
-    Button decryptClearButton = Button.wrap($doc.getElementById("clear_cipher"));
+    e = $doc.getElementById("clear-decrypt").cast();
+    assert(e != null);
+    Button decryptClearButton = Button.wrap(e);
     decryptClearButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         cipher.setText("");
