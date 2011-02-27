@@ -6,7 +6,7 @@
 	<title>Yasmin</title>
 
 	<link rel="stylesheet" href="jquery-mobile/custom.css">
-  <script type="text/javascript" language="javascript" src="yasmin/yasmin.nocache.js"></script>
+	<script type="text/javascript" language="javascript" src="yasmin/yasmin.nocache.js"></script>
 	<script src="jquery-mobile/jquery-1.5.1.min.js"></script>
 	<script src="jquery-mobile/custom.js"></script>
 	<script src="jquery-mobile/jquery.mobile-1.0a3.min.js"></script>
@@ -14,17 +14,15 @@
 
 <body>
 
-<!-- Home -->
+<!-- Dashboard -->
 <div id="home" data-role="page">
-	<div data-role="content">
+	
+	<!-- Fading Splash Screen -->
+	<div id="splash">
 		<h1>Yasmin</h1>
 	</div>
-</div>
-<!-- END Home -->
-
-<!-- Dashboard -->
-<div id="dashboard" data-role="page">
-
+	<!-- END Splash -->
+	
 	<div data-role="header">
 		<h2>Yasmin</h2>
 	</div>
@@ -37,7 +35,6 @@
 		</ul>
 	</div>
 	
-	<div data-role="footer"></div>
 </div>
 <!-- END Dashboard -->
 
@@ -56,7 +53,6 @@
 		<button id="clear-encrypt">Clear</button>
 	</div>
 
-	<div data-role="footer"></div>
 </div>
 <!-- END Encrypt -->
 
@@ -73,7 +69,6 @@
 		<button id="clear-decrypt">Clear</button>
 	</div>
 	
-	<div data-role="footer"></div>
 </div>
 <!-- END Decrypt -->
 
@@ -100,7 +95,6 @@
 		</select>
 	</div>
 
-	<div data-role="footer"></div>
 </div>
 <!-- END Channels -->
 

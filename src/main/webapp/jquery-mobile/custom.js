@@ -2,7 +2,7 @@ $(document).bind('mobileinit', function(){
   
   $('#home').live('pagebeforecreate',function(event){
     setTimeout( function(){
-      $.mobile.changePage('#dashboard');
+      $('#splash').fadeOut();
     }, 2000)
   });
   
