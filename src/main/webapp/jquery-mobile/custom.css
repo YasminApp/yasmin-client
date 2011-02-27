@@ -19,12 +19,14 @@
 /* A really pretty splash screen */
 #home { background: #141 url(images/bg.jpg) no-repeat bottom right; }
 #home h1 {
+	background: url(images/logo.png) no-repeat center center;
 	color: #fff;
-	font-family: Calligraphy, Georgia, serif;
+	font-family: Georgia, serif;
 	font-weight: normal;
+	height: 103px;
 	letter-spacing: -1px;
 	text-align: center;
-	text-shadow: rgba(0,0,0,.5) 2px 2px 3px;
+	text-indent: -9999px;
 }
 /* Hide the back link on #dashboard */
 #dashboard a[data-rel='back'] { display: none; }
