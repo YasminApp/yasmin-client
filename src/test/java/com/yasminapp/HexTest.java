@@ -1,7 +1,9 @@
-package com.yasminapp.client;
+package com.yasminapp;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.yasminapp.client.Hex;
 
 public class HexTest {
   @Test
