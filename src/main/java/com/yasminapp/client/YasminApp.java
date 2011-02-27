@@ -46,11 +46,6 @@ public class YasminApp implements EntryPoint {
     assert (e != null);
     passphrase = TextBox.wrap(e);
 
-    /*
-     * e = $doc.getElementById("key").cast(); assert (e != null); key =
-     * TextBox.wrap(e);
-     */
-
     e = $doc.getElementById("encrypt").cast();
     assert (e != null);
     Anchor encryptButton = Anchor.wrap(e);
@@ -68,30 +63,12 @@ public class YasminApp implements EntryPoint {
     assert (e != null);
     cipher = TextArea.wrap(e);
 
-    e = $doc.getElementById("clear-encrypt").cast();
-    assert (e != null);
-    Button encryptClearButton = Button.wrap(e);
-    encryptClearButton.addClickHandler(new ClickHandler() {
-      public void onClick(ClickEvent e) {
-        plaintext.setText("");
-      }
-    });
-
     e = $doc.getElementById("do-decrypt").cast();
     assert (e != null);
-    Button decryptButton = Button.wrap(e);
+    Anchor decryptButton = Anchor.wrap(e);
     decryptButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         decrypt();
-      }
-    });
-
-    e = $doc.getElementById("clear-decrypt").cast();
-    assert (e != null);
-    Button decryptClearButton = Button.wrap(e);
-    decryptClearButton.addClickHandler(new ClickHandler() {
-      public void onClick(ClickEvent e) {
-        cipher.setText("");
       }
     });
 
@@ -113,13 +90,13 @@ public class YasminApp implements EntryPoint {
     }
     keylist_enc.setVisibleItemCount(1);
 
-    e = $doc.getElementById("keylist-edec").cast();
+    e = $doc.getElementById("keylist-dec").cast();
     assert (e != null);
     ListBox keylist_dec = new ListBox();
     for (String key : keys) {
       keylist_dec.addItem(key);
     }
-    keylist_dec.setVisibleItemCount(keys.length);
+    keylist_dec.setVisibleItemCount(1);
   }
 
   byte[] padToLength(byte[] in, int len) {

@@ -70,7 +70,7 @@
 	</div>
 
 	<div data-role="content">
-		<textarea id="encrypted"><!-- Add ecrypted message here --></textarea>
+    <textarea id="encrypted" placeholder="Add encrypted message here"></textarea>
 
 		<button id="clear-encrypted">Clear</button>
 
@@ -95,14 +95,10 @@
 	</div>
 
 	<div data-role="content">
-    <select id="keylist-dec"></select>
 		<textarea id="cipher" placeholder="Enter secure message to decrypt"></textarea>
 
-		<select>
+    <select id="keylist-dec">
 			<option data-placeholder="true">Choose Channel...</option>
-      <!-- Generate programmatically -->
-			<option value="AES Key #1">AES Key #1</option>
-			<option value="OTP #10">OTP #10</option>
 		</select>
 
 		<a href="#decrypted-page" data-role="button" id="do-decrypt" data-theme="e">Decrypt</a>
