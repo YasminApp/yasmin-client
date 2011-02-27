@@ -10,6 +10,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
@@ -50,16 +51,16 @@ public class YasminApp implements EntryPoint {
      * TextBox.wrap(e);
      */
 
-    e = $doc.getElementById("do-encrypt").cast();
+    e = $doc.getElementById("encrypt").cast();
     assert (e != null);
-    Button encryptButton = Button.wrap(e);
+    Anchor encryptButton = Anchor.wrap(e);
     encryptButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         encrypt();
       }
     });
 
-    e = $doc.getElementById("plaintext").cast();
+    e = $doc.getElementById("not-encrypted").cast();
     assert (e != null);
     plaintext = TextArea.wrap(e);
 

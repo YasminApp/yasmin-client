@@ -14,86 +14,142 @@
 
 <body>
 
-<!-- Dashboard -->
+<!-- Home -->
 <div id="home" data-role="page">
-	
+
 	<!-- Fading Splash Screen -->
 	<div id="splash">
 		<h1>Yasmin</h1>
 	</div>
 	<!-- END Splash -->
-	
-	<div data-role="header">
+
+	<div data-role="header" data-backbtn="false">
 		<h2>Yasmin</h2>
 	</div>
 
 	<div data-role="content">
 		<ul data-role="listview" data-inset="true">
-			<li><a href="#encrypt">Encrypt</a></li>
-			<li><a href="#decrypt">Decrypt</a></li>
-			<li><a href="#settings">Settings</a></li>
+			<li><a href="#encrypt-page">Encrypt Message</a></li>
+			<li><a href="#decrypt-page">Decrypt Message</a></li>
+			<li data-icon="gear"><a href="#settings-page">Manage Secure Keys</a></li>
 		</ul>
 	</div>
-	
+
 </div>
-<!-- END Dashboard -->
+<!-- END Home -->
 
 <!-- Encrypt -->
-<div id="encrypt" data-role="page">
+<div id="encrypt-page" data-role="page">
 
 	<div data-role="header">
-		<h2>Encrypt Message</h2>
+		<a href="#home" data-direction="reverse" data-icon="delete">Cancel</a>
+		<h2>Encrypt</h2>
+		<a href="#encrypted-page" data-icon="arrow-r" data-iconpos="right">Encrypt</a>
 	</div>
 
 	<div data-role="content">
-		<input type="text" id="passphrase" placeholder="passphrase">
-    <select id="keylist-enc"></select>
-		<textarea id="plaintext" placeholder="Enter your message here"></textarea>
-		<button id="do-encrypt">Encrypt</button>
-		<button id="clear-encrypt">Clear</button>
+		<input type="text" id="passphrase" placeholder="Enter passphrase...">
+    <select id="keylist-enc">
+			<option data-placeholder="true">Choose Channel...</option>
+    </select>
+		<textarea id="not-encrypted" placeholder="Enter your message..."></textarea>
+		<a href="#encrypted-page" id="encrypt" data-role="button" data-theme="e">Encrypt</a>
+    <!--<button id="clear-encrypt">Clear</button> -->
 	</div>
 
 </div>
 <!-- END Encrypt -->
 
-<!-- Decrypt -->
-<div id="decrypt" data-role="page">
+<!-- Encrypted Message -->
+<div id="encrypted-page" data-role="page">
 
 	<div data-role="header">
-		<h2>Decrypt Message</h2>
+		<a href="#encrypt-page" data-direction="reverse" data-icon="arrow-l">Back</a>
+		<h2>Encrypted</h2>
+		<a href="#home" data-direction="reverse" data-icon="home">Home</a>
+	</div>
+
+	<div data-role="content">
+		<textarea id="encrypted"><!-- Add ecrypted message here --></textarea>
+
+		<button id="clear-encrypted">Clear</button>
+
+		<!--<select data-theme="e">
+			<option data-placeholder="true">Copy and Send</option>
+			<option value="Email">Email</option>
+			<option value="Twitter">Twitter</option>
+			<option value="Facebook">Facebook</option>
+		</select>-->
+	</div>
+
+</div>
+<!-- END Encrypted Message -->
+
+<!-- Decrypt -->
+<div id="decrypt-page" data-role="page">
+
+	<div data-role="header">
+		<a href="#home" data-direction="reverse" data-icon="delete">Cancel</a>
+		<h2>Decrypt</h2>
+		<a href="#decrypted-page" data-icon="arrow-r" data-iconpos="right">Decrypt</a>
 	</div>
 
 	<div data-role="content">
     <select id="keylist-dec"></select>
 		<textarea id="cipher" placeholder="Enter secure message to decrypt"></textarea>
-		<button id="do-decrypt">Decrypt</button>
-		<button id="clear-decrypt">Clear</button>
-	</div>
-	
-</div>
-<!-- END Decrypt -->
 
-<!-- Channels -->
-<div id="settings" data-role="page">
-
-	<div data-role="header">
-		<h2>Setup Secure Channel</h2>
-	</div>
-
-	<div data-role="content">
 		<select>
+			<option data-placeholder="true">Choose Channel...</option>
       <!-- Generate programmatically -->
 			<option value="AES Key #1">AES Key #1</option>
 			<option value="OTP #10">OTP #10</option>
 		</select>
-		<input name="message" placeholder="Enter your message here">
-		<input type="submit" value="Secure Send">
-		<input type="reset" value="Erase message">
-		<span>Send secure message via...</span>
-		<select>
-			<option value="Twitter">Twitter</option>
-			<option value="Facebook">Facebook</option>
-		</select>
+
+		<a href="#decrypted-page" data-role="button" id="do-decrypt" data-theme="e">Decrypt</a>
+	</div>
+
+</div>
+<!-- END Decrypt -->
+
+<!-- Decrypted Message -->
+<div id="decrypted-page" data-role="page">
+
+	<div data-role="header">
+		<a href="#decrypt-page" data-direction="reverse" data-icon="arrow-l">Back</a>
+		<h2>Decrypted</h2>
+		<a href="#home" data-direction="reverse" data-icon="home">Home</a>
+	</div>
+
+	<div data-role="content">
+		<textarea id="decrypted"><!-- Add derypted message here --></textarea>
+
+		<button id="clear-decrypted">Clear</button>
+	</div>
+
+</div>
+<!-- END Decrypted Message -->
+
+<!-- Channels -->
+<div id="settings-page" data-role="page">
+
+	<div data-role="header">
+		<a href="#home" data-direction="reverse" data-icon="arrow-l">Back</a>
+		<h2>Secure Keys</h2>
+	</div>
+
+	<div data-role="content">
+		<button id="generate-key">Generate Key</button>
+		<!-- Clicking this refreshes list and adds a new key below -->
+
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider">Your Keys</li>
+      <!--
+				Generate programmatically
+				Also, these are editable, no? -Yifei
+			-->
+			<li><a href="">AES Key #1</a></li>
+			<li><a href="">OTP #10</a></li>
+		</ul>
 	</div>
 
 </div>

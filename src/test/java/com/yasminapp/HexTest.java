@@ -20,6 +20,25 @@ public class HexTest {
   }
 
   @Test
+  public void testFromHex2() {
+    byte[] expectedBytes = {
+        (byte) 0xd4, (byte) 0x1d, (byte) 0x8c, (byte) 0xd9, (byte) 0x8f, (byte) 0x00, (byte) 0xb2,
+        (byte) 0x04, (byte) 0xe9, (byte) 0x80, (byte) 0x09, (byte) 0x98, (byte) 0xec, (byte) 0xf8,
+        (byte) 0x42, (byte) 0x7e };
+
+    byte[] result = Hex.fromHex("d41d8cd98f00b204e9800998ecf8427e");
+    Assert.assertArrayEquals(expectedBytes, result);
+  }
+
+  @Test
+  public void testFromHexPadding() {
+    byte[] expectedBytes = {(byte) 0x0d, (byte) 0x41, (byte) 0xd8};
+
+    byte[] result = Hex.fromHex("d41d8");
+    Assert.assertArrayEquals(expectedBytes, result);
+  }
+
+  @Test
   public void testToHex() {
     String expectedResult = "000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F";
     String result = Hex.toHex(new byte[] {
