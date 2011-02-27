@@ -17,11 +17,18 @@
 -----------------------------------------------------------------------------------------------------------*/
 
 /* Height control */
-html, body, div[data-role="page"] { height: 100% }
+html, body, div[data-role="page"], #splash { height: 100% }
 
 /* A really pretty splash screen */
-#home { background: #141 url(images/bg.jpg) no-repeat bottom right; }
-#home h1 {
+#splash {
+	background: #141 url(images/bg.jpg) no-repeat bottom right;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 1000;
+}
+#splash h1 {
 	background: url(images/yasmin.png) no-repeat center center;
 	color: #fff;
 	font-family: Georgia, serif;
@@ -31,8 +38,6 @@ html, body, div[data-role="page"] { height: 100% }
 	text-align: center;
 	text-indent: -9999px;
 }
-/* Hide the back link on #dashboard */
-#dashboard a[data-rel='back'] { display: none; }
 
 /* A (header-default: 282 to 185f18 )
 -----------------------------------------------------------------------------------------------------------*/
