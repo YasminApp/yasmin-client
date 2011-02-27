@@ -1,6 +1,6 @@
 package com.yasminapp.client;
 
-public class Base2048 {
+public class Base2K {
   // See http://twuuenc.atxconsulting.com/index.htm/index.htm
   private static final char[] ALPHABET = concat(new char[][] {
       range(0x20, 0x7E), range(0xA1, 0xFF), range(0x100, 0x17F),
