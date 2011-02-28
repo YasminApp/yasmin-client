@@ -26,7 +26,7 @@ public class YasminApp implements EntryPoint {
   private ListBox keylist_dec;
   private TextArea plaintext;
   private TextArea cipher;
-
+  TextArea w;
   public YasminApp() {
   }
 
@@ -47,7 +47,7 @@ public class YasminApp implements EntryPoint {
     assert (e != null);
     passphrase = TextBox.wrap(e);
 
-    e = $doc.getElementById("passphrase").cast();
+    e = $doc.getElementById("encrypted").cast();
     assert (e != null);
     encrypted = TextBox.wrap(e);
 
@@ -59,8 +59,9 @@ public class YasminApp implements EntryPoint {
         encrypt();
       }
     });
+    w = TextArea.wrap($doc.getElementById("not-encrypted"));
 
-    e = $doc.getElementById("not-encrypted").cast();
+    e = $doc.getElementById("decrypted").cast();
     assert (e != null);
     plaintext = TextArea.wrap(e);
 
@@ -128,7 +129,7 @@ public class YasminApp implements EntryPoint {
   public void encrypt() {
     // Hardcode value for demonstration purposes.
     String result = "☺ң▦▃ᒱ░✍ǯᖧᙁᒡÓΦᓵ8%ᘎLᓟ☺";
-    message = plaintext.getValue();
+    message = w.getValue();
     encrypted.setValue(result);
     cipher.setValue(result);
   }
