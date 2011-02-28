@@ -62,11 +62,12 @@ public class YasminApp implements EntryPoint {
     Button generateKey = Button.wrap(getElement($doc, "generate-key"));
     generateKey.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
-        generate_key();
+        String key = generate_key();
+        storeKeys(new String[] { key });
       }
     });
 
-    String[] keys = load_keys();
+    String[] keys = getKeys();
     keylist_enc = ListBox.wrap(getElement($doc, "keylist-enc"));
     for (String key : keys) {
       keylist_enc.addItem(key);
@@ -104,6 +105,7 @@ public class YasminApp implements EntryPoint {
    * Generates a new AES128 key represented as hex string
    */
   public String generate_key() {
+    // TODO: Real key generation
     return new String("DEADBEEFDEADBEEFDEADBEEFDEADBEEF");
   }
 
@@ -112,11 +114,14 @@ public class YasminApp implements EntryPoint {
    * new ones added. XXX: Should we store keys in a map with unique identifiers?
    * It might make sense to enforce name-uniqueness among keys. Not sure.
    */
-  public void store_keys(String[] keylist) {
+  public void storeKeys(String[] keylist) {
     alert("Implement me, bitches!");
   }
 
-  public String[] load_keys() {
+  /*
+   * Returns all encryption keys stored on the local device
+   */
+  public String[] getKeys() {
     return new String[] { "This", "space", "intentionally", "left", "blank" };
   }
 
