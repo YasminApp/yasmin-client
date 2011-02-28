@@ -108,8 +108,11 @@ public class YasminApp implements EntryPoint {
     return out;
   }
 
+  /*
+   * Generates a new AES128 key represented as hex string
+   */
   public String generate_key() {
-    return new String("No key for you! :D~~~~~~~~~~~~~~");
+    return new String("DEADBEEFDEADBEEFDEADBEEFDEADBEEF");
   }
 
   public void store_keys(String[] keylist) {
