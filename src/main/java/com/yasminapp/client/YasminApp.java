@@ -111,8 +111,10 @@ public class YasminApp implements EntryPoint {
 
   /*
    * Stores all keys passed in keylist. Should merge the stored keys with the
-   * new ones added. XXX: Should we store keys in a map with unique identifiers?
-   * It might make sense to enforce name-uniqueness among keys. Not sure.
+   * new ones added.
+   * 
+   * XXX: Should we store keys in a map with unique identifiers? It might make
+   * sense to enforce name-uniqueness among keys. Not sure.
    */
   public void storeKeys(String[] keylist) {
     alert("Implement me, bitches!");
