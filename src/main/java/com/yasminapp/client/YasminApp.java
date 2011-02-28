@@ -62,8 +62,8 @@ public class YasminApp implements EntryPoint {
     Button generateKey = Button.wrap(getElement($doc, "generate-key"));
     generateKey.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
-        String key = generate_key();
-        storeKeys(new String[] { key });
+        byte[] key = generateKey();
+        storeKeys(new String[] { Hex.toHex(key) });
       }
     });
 
@@ -104,9 +104,9 @@ public class YasminApp implements EntryPoint {
   /*
    * Generates a new AES128 key represented as hex string
    */
-  public String generate_key() {
+  public byte[] generateKey() {
     // TODO: Real key generation
-    return new String("DEADBEEFDEADBEEFDEADBEEFDEADBEEF");
+    return Hex.fromHex(new String("DEADBEEFDEADBEEFDEADBEEFDEADBEEF"));
   }
 
   /*
@@ -117,6 +117,7 @@ public class YasminApp implements EntryPoint {
    * sense to enforce name-uniqueness among keys. Not sure.
    */
   public void storeKeys(String[] keylist) {
+    // TODO: Storage :D
     alert("Implement me, bitches!");
   }
 
