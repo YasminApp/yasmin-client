@@ -63,7 +63,7 @@ public class YasminApp implements EntryPoint {
     generateKey.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         byte[] key = generateKey();
-        storeKeys(new String[] { Hex.toHex(key) });
+        storeKeys(new byte[][] { key });
       }
     });
 
@@ -116,7 +116,7 @@ public class YasminApp implements EntryPoint {
    * XXX: Should we store keys in a map with unique identifiers? It might make
    * sense to enforce name-uniqueness among keys. Not sure.
    */
-  public void storeKeys(String[] keylist) {
+  public void storeKeys(byte[][] keylist) {
     // TODO: Storage :D
     alert("Implement me, bitches!");
   }
