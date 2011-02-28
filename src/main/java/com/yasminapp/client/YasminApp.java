@@ -18,6 +18,8 @@ import com.google.gwt.user.client.ui.TextBox;
 
 public class YasminApp implements EntryPoint {
 
+  private static final boolean USE_COMPRESSION = false;
+
   private static final int AES_BLOCK_SIZE = 16;
 
   private TextBox passphrase;
@@ -129,7 +131,14 @@ public class YasminApp implements EntryPoint {
     return new String[] { "This", "space", "intentionally", "left", "blank" };
   }
 
+  /*
+   * Convenience function to encrypt with default compression option.
+   */
   public void encrypt() {
+    encrypt(USE_COMPRESSION);
+  }
+
+  public void encrypt(boolean compress) {
     String key = keylist_enc.getValue(keylist_enc.getSelectedIndex());
     byte[] keyBytes = Hex.fromHex(key);
     AES aes = new AES();
@@ -137,6 +146,7 @@ public class YasminApp implements EntryPoint {
     int offset = 0;
     byte[] inputBytes;
 
+    // XXX: What if input is not utf8?
     inputBytes = UTF8.encode(plaintext.getValue());
     // (optional): compress
     int len = inputBytes.length;
@@ -189,6 +199,6 @@ public class YasminApp implements EntryPoint {
   }
 
   public native void alert(String msg) /*-{
-		$wnd.alert(msg);
+    $wnd.alert(msg);
   }-*/;
 }
