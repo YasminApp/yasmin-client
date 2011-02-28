@@ -21,6 +21,7 @@ public class YasminApp implements EntryPoint {
   private static final int AES_BLOCK_SIZE = 16;
 
   private TextBox passphrase;
+  private String[] keys;
   private ListBox keylist_enc;
   private ListBox keylist_dec;
   private TextArea plaintext;
@@ -67,7 +68,8 @@ public class YasminApp implements EntryPoint {
       }
     });
 
-    String[] keys = getKeys();
+    keys = getKeys();
+
     keylist_enc = ListBox.wrap(getElement($doc, "keylist-enc"));
     for (String key : keys) {
       keylist_enc.addItem(key);
