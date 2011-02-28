@@ -223,6 +223,10 @@ public class MD5 {
     a = rotateLeft(t, s) + b;
   }
 
+  public void update(byte[] input) {
+    update(input, 0, input.length);
+  }
+
   public void update(byte[] data, int offset, int len) {
     int left = len;
     int off = (bits / 8) % 64; // offset within the current block (bytes)
