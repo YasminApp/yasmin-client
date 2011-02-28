@@ -49,11 +49,9 @@
 
 	<div data-role="content">
 		<input type="text" id="passphrase" placeholder="Enter passphrase...">
-<!--
     <select id="keylist-enc">
 			<option data-placeholder="true">Choose Channel...</option>
     </select>
--->
 		<textarea id="not-encrypted" placeholder="Enter your message..."></textarea>
 		<a href="#encrypted-page" id="encrypt" data-role="button" data-theme="e">Encrypt</a>
     <!--<button id="clear-encrypt">Clear</button> -->
@@ -98,11 +96,11 @@
 
 	<div data-role="content">
 		<textarea id="cipher" placeholder="Enter secure message to decrypt"></textarea>
-<!--
+
     <select id="keylist-dec">
 			<option data-placeholder="true">Choose Channel...</option>
 		</select>
--->
+
 		<a href="#decrypted-page" data-role="button" id="do-decrypt" data-theme="e">Decrypt</a>
 	</div>
 
@@ -119,7 +117,7 @@
 	</div>
 
 	<div data-role="content">
-		<textarea id="decrypted"></textarea>
+		<textarea id="decrypted"><!-- Add derypted message here --></textarea>
 
 		<button id="clear-decrypted">Clear</button>
 	</div>
