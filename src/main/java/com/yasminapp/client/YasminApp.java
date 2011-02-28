@@ -41,40 +41,25 @@ public class YasminApp implements EntryPoint {
 
     Document $doc = Document.get();
 
-    // temp variable used for null checking
-    Element e = $doc.getElementById("passphrase").cast();
-    assert (e != null);
-    passphrase = TextBox.wrap(e);
+    passphrase = TextBox.wrap(getElement($doc, "passphrase"));
+    plaintext = TextArea.wrap(getElement($doc, "plaintext"));
+    cipher = TextArea.wrap(getElement($doc, "cipher"));
 
-    e = $doc.getElementById("encrypt").cast();
-    assert (e != null);
-    Anchor encryptButton = Anchor.wrap(e);
+    Anchor encryptButton = Anchor.wrap(getElement($doc, "encrypt"));
     encryptButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         encrypt();
       }
     });
 
-    e = $doc.getElementById("plaintext").cast();
-    assert (e != null);
-    plaintext = TextArea.wrap(e);
-
-    e = $doc.getElementById("cipher").cast();
-    assert (e != null);
-    cipher = TextArea.wrap(e);
-
-    e = $doc.getElementById("do-decrypt").cast();
-    assert (e != null);
-    Anchor decryptButton = Anchor.wrap(e);
+    Anchor decryptButton = Anchor.wrap(getElement($doc, "do-decrypt"));
     decryptButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         decrypt();
       }
     });
 
-    e = $doc.getElementById("generate-key").cast();
-    assert (e != null);
-    Button generateKey = Button.wrap(e);
+    Button generateKey = Button.wrap(getElement($doc, "generate-key"));
     generateKey.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent e) {
         generate_key();
@@ -82,21 +67,28 @@ public class YasminApp implements EntryPoint {
     });
 
     String[] keys = load_keys();
-    e = $doc.getElementById("keylist-enc").cast();
-    assert (e != null);
-    ListBox keylist_enc = new ListBox();
+    keylist_enc = ListBox.wrap(getElement($doc, "keylist-enc"));
     for (String key : keys) {
       keylist_enc.addItem(key);
     }
     keylist_enc.setVisibleItemCount(1);
 
-    e = $doc.getElementById("keylist-dec").cast();
-    assert (e != null);
-    ListBox keylist_dec = new ListBox();
+    keylist_dec = ListBox.wrap(getElement($doc, "keylist-dec"));
     for (String key : keys) {
       keylist_dec.addItem(key);
     }
     keylist_dec.setVisibleItemCount(1);
+  }
+
+  /*
+   * Convenience function to get a document element by id, with safe null
+   * checking
+   */
+  private Element getElement(Document $doc, String elemName) {
+    Element elem = $doc.getElementById(elemName).cast();
+    assert (elem != null); // Ensures the name we look for is actually present
+                           // in the document
+    return elem;
   }
 
   byte[] padToLength(byte[] in, int len) {
