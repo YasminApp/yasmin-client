@@ -55,7 +55,7 @@ public class YasminApp implements EntryPoint {
       }
     });
 
-    e = $doc.getElementById("not-encrypted").cast();
+    e = $doc.getElementById("plaintext").cast();
     assert (e != null);
     plaintext = TextArea.wrap(e);
 
