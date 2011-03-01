@@ -13,8 +13,8 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
 
 public class YasminApp implements EntryPoint {
 
@@ -22,7 +22,7 @@ public class YasminApp implements EntryPoint {
 
   private static final int AES_BLOCK_SIZE = 16;
 
-  private TextBox passphrase;
+  private PasswordTextBox passphrase;
   private String[] keys;
   private ListBox keylist_enc;
   private ListBox keylist_dec;
@@ -44,7 +44,7 @@ public class YasminApp implements EntryPoint {
 
     Document $doc = Document.get();
 
-    passphrase = TextBox.wrap(getElement($doc, "passphrase"));
+    passphrase = PasswordTextBox.wrap(getElement($doc, "passphrase"));
     plaintext = TextArea.wrap(getElement($doc, "plaintext"));
     cipher = TextArea.wrap(getElement($doc, "cipher"));
 
