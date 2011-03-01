@@ -54,6 +54,16 @@ public class Base2KTest {
   }
 
   @Test
+  public void testDecode_TestCase1() {
+    String input = "˫ɟʆᓶ˼ᕬᕃbѰҺ◆ɉДᖿӦʽшӶ΢ɉ➧ǚᘣtРƍÛᗶᔛᑠÐ❓";
+    byte[] expectedResult = "The Quick Brown Fox Jumped Over The Lazy Dog"
+        .getBytes();
+    byte[] result = Base2K.decode(input);
+    Assert.assertNotNull(result);
+    Assert.assertEquals("Decoded value", expectedResult, result);
+  }
+
+  @Test
   public void testEncode_TestCase2() {
     byte[] input = "00000000000".getBytes();
     String expectedResult = "ǆө£ϟ8ĄᗥP";
@@ -61,6 +71,16 @@ public class Base2KTest {
     Assert.assertNotNull(result);
     Assert.assertEquals("Encoded value", expectedResult, result);
   }
+
+  @Test
+  public void testDecode_TestCase2() {
+    String input = "ǆө£ϟ8ĄᗥP";
+    byte[] expectedResult = "00000000000".getBytes();
+    byte[] result = Base2K.decode(input);
+    Assert.assertNotNull(result);
+    Assert.assertEquals("Decoded value", expectedResult, result);
+  }
+
   @Test
   public void testEncode_TestCase3() {
     byte[] input = { 'A' };
@@ -68,6 +88,15 @@ public class Base2KTest {
     String result = Base2K.encode(input);
     Assert.assertNotNull(result);
     Assert.assertEquals("Encoded value", expectedResult, result);
+  }
+
+  @Test
+  public void testDecode_TestCase3() {
+    String input = "ɍ";
+    byte[] expectedResult = { 'A' };
+    byte[] result = Base2K.decode(input);
+    Assert.assertNotNull(result);
+    Assert.assertEquals("Decoded value", expectedResult, result);
   }
 
 }
