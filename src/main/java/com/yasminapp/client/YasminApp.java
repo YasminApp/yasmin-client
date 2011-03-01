@@ -26,6 +26,7 @@ public class YasminApp implements EntryPoint {
   private ListBox keylist_dec;
   private TextArea plaintext;
   private TextArea cipher;
+  private TextArea decrypted;
 
   public YasminApp() {
   }
@@ -40,11 +41,12 @@ public class YasminApp implements EntryPoint {
       });
     }
 
-    Document $doc = Document.get();
+    final Document $doc = Document.get();
 
     passphrase = TextBox.wrap(getElement($doc, "passphrase"));
     plaintext = TextArea.wrap(getElement($doc, "plaintext"));
     cipher = TextArea.wrap(getElement($doc, "cipher"));
+    decrypted = TextArea.wrap(getElement($doc, "decrypted"));
 
     Anchor encryptButton = Anchor.wrap(getElement($doc, "encrypt"));
     encryptButton.addClickHandler(new ClickHandler() {
@@ -68,6 +70,15 @@ public class YasminApp implements EntryPoint {
       }
     });
 
+    Button clearDecrypted = Button.wrap(getElement($doc, "clear-decrypted"));
+    clearDecrypted.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent e) {
+    	  decrypted.setValue("");
+    	  
+    	  
+      }
+    });
+    
     keys = getKeys();
 
     keylist_enc = ListBox.wrap(getElement($doc, "keylist-enc"));
