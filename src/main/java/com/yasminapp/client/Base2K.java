@@ -1,7 +1,8 @@
 package com.yasminapp.client;
 
 public class Base2K {
-  // See http://twuuenc.atxconsulting.com/index.htm/index.htm
+  // See http://twuuenc.atxconsulting.com/index.htm
+
   private static final char[] ALPHABET;
   static {
     ALPHABET = concat(
@@ -73,7 +74,7 @@ public class Base2K {
 
   private static char[] range(char start, char stop) {
     char[] result = new char[stop - start];
-    for (char ch = start, i = 0; ch <= stop; ch++, i++)
+    for (char ch = start, i = 0; ch < stop; ch++, i++)
       result[i] = ch;
 
     return result;
