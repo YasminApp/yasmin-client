@@ -85,9 +85,14 @@ public class YasminApp implements EntryPoint {
     keylist_dec.setVisibleItemCount(1);
   }
 
-  /*
+  /**
    * Convenience function to get a document element by id, with safe null
    * checking
+   * 
+   * @param $doc
+   *          The Document to find the ids in
+   * @param elemName
+   *          The element id to search for
    */
   private Element getElement(Document $doc, String elemName) {
     Element elem = $doc.getElementById(elemName).cast();
@@ -105,7 +110,7 @@ public class YasminApp implements EntryPoint {
     return out;
   }
 
-  /*
+  /**
    * Generates a new AES128 key represented as hex string
    */
   public byte[] generateKey() {
@@ -124,14 +129,14 @@ public class YasminApp implements EntryPoint {
     alert("Implement me, bitches!");
   }
 
-  /*
+  /**
    * Returns all encryption keys stored on the local device
    */
   public String[] getKeys() {
     return new String[] { "This", "space", "intentionally", "left", "blank" };
   }
 
-  /*
+  /**
    * Convenience function to encrypt with default compression option.
    */
   public void encrypt() {
