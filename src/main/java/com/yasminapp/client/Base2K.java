@@ -60,7 +60,7 @@ public class Base2K {
       sb.append(ALPHABET[value]);
       offset++;
       // 3/8
-      value = ((buf[offset] & 0x07) << 8)  | ((buf[offset+1] & 0xff) >>> 3);
+      value = ((buf[offset] & 0x07) << 8)  | (buf[offset+1] & 0xff);
       sb.append(ALPHABET[value]);
       offset+=2;
     }
