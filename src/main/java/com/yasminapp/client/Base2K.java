@@ -25,47 +25,34 @@ public class Base2K {
 
   public static String encode(byte[] buf) {
     StringBuilder sb = new StringBuilder();
-    int value;
     int chunks = buf.length / 11;
     int offset = 0;
-    // process whole 11-byte chunks
-    // MSB-first
-    for (int i=0; i < chunks; i++) {
-      // 8/3
-      value = ((buf[offset] & 0xff) << 3) | ((buf[offset+1] & 0xe0) >>> 5);
-      sb.append(ALPHABET[value]);
-      offset++;
-      // 5/6
-      value = ((buf[offset] & 0x1f) << 6)  | ((buf[offset+1] & 0xfd) >>> 2);
-      sb.append(ALPHABET[value]);
-      offset++;
-      // 2/8/1
-      value = ((buf[offset] & 0x03) << 9)  | ((buf[offset+1] & 0xff) << 1) | ((buf[offset+2] & 0x80) >>> 7);
-      sb.append(ALPHABET[value]);
-      offset += 2;
-      // 7/4
-      value = ((buf[offset] & 0x7f) << 4)  | ((buf[offset+1] & 0xf0) >>> 4);
-      sb.append(ALPHABET[value]);
-      offset++;
-      // 4/7
-      value = ((buf[offset] & 0x0f) << 7)  | ((buf[offset+1] & 0xfe) >>> 1);
-      sb.append(ALPHABET[value]);
-      offset++;
-      // 1/8/2
-      value = ((buf[offset] & 0x01) << 10)  | ((buf[offset+1] & 0xff) << 2) | ((buf[offset+2] & 0xc0) >>> 6);
-      sb.append(ALPHABET[value]);
-      offset += 2;
-      // 6/5
-      value = ((buf[offset] & 0x3f) << 5)  | ((buf[offset+1] & 0xf8) >>> 3);
-      sb.append(ALPHABET[value]);
-      offset++;
-      // 3/8
-      value = ((buf[offset] & 0x07) << 8)  | (buf[offset+1] & 0xff);
-      sb.append(ALPHABET[value]);
-      offset+=2;
+    // process whole chunks of 11 bytes
+    for (int i=0; i < chunks; i++, offset += 11) {
+      processChunk(buf, offset, sb);
     }
-    // TODO process remainder bytes (buf.length % 11)
+    // Handle any remainder by padding with 0's
+    if (offset < buf.length) {
+      byte[] tail = new byte[11];
+      System.arraycopy(buf, offset, tail, 0, buf.length - offset);
+      processChunk(tail, 0, sb);
+    }
+    // rstrip, null padding -> spaces
+    int n = sb.length();
+    while (sb.charAt(--n) == ' ');
+    sb.setLength(n + 1);
     return sb.toString();
+  }
+
+  private static void processChunk(byte[] buf, int offset, StringBuilder output) {
+    output.append(ALPHABET[((buf[offset] & 0xff) << 3) | ((buf[++offset] & 0xe0) >>> 5)]);
+    output.append(ALPHABET[((buf[offset] & 0x1f) << 6) | ((buf[++offset] & 0xfd) >>> 2)]);
+    output.append(ALPHABET[((buf[offset] & 0x03) << 9) | ((buf[++offset] & 0xff) << 1) | ((buf[++offset] & 0x80) >>> 7)]);
+    output.append(ALPHABET[((buf[offset] & 0x7f) << 4) | ((buf[++offset] & 0xf0) >>> 4)]);
+    output.append(ALPHABET[((buf[offset] & 0x0f) << 7) | ((buf[++offset] & 0xfe) >>> 1)]);
+    output.append(ALPHABET[((buf[offset] & 0x01) << 10) | ((buf[++offset] & 0xff) << 2) | ((buf[++offset] & 0xc0) >>> 6)]);
+    output.append(ALPHABET[((buf[offset] & 0x3f) << 5) | ((buf[++offset] & 0xf8) >>> 3)]);
+    output.append(ALPHABET[((buf[offset] & 0x07) << 8) | (buf[++offset] & 0xff)]);
   }
 
   public static byte[] decode(String s) {
