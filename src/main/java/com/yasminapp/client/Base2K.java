@@ -1,11 +1,13 @@
 package com.yasminapp.client;
 
+
 public class Base2K {
   // See http://twuuenc.atxconsulting.com/index.htm
 
-  private static final char[] ALPHABET;
+  private static final char[] CHARSET;
+  private static final int[] INDEXES;
   static {
-    ALPHABET = concat(
+    CHARSET = concat(
       range((char) 0x20, (char) 0x7E),
       range((char) 0xA1, (char) 0xFF),
       range((char) 0x100, (char) 0x17F),
@@ -21,6 +23,11 @@ public class Base2K {
       range((char) 0x2701, (char) 0x27BE),
       range((char) 0x27C0, (char) 0x27EB),
       range((char) 0x27F0, (char) 0x27FF));
+    
+    INDEXES = new int[0x2800]; // top == highest value char
+    for (int i=0; i < CHARSET.length; i++) {
+      INDEXES[CHARSET[i]] = i;
+    }
   }
 
   public static String encode(byte[] buf) {
@@ -29,13 +36,13 @@ public class Base2K {
     int offset = 0;
     // process whole chunks of 11 bytes
     for (int i=0; i < chunks; i++, offset += 11) {
-      processChunk(buf, offset, sb);
+      encodeChunk(buf, offset, sb);
     }
     // Handle any remainder by padding with 0's
     if (offset < buf.length) {
       byte[] tail = new byte[11];
       System.arraycopy(buf, offset, tail, 0, buf.length - offset);
-      processChunk(tail, 0, sb);
+      encodeChunk(tail, 0, sb);
     }
     // rstrip, null padding -> spaces
     int n = sb.length();
@@ -44,19 +51,38 @@ public class Base2K {
     return sb.toString();
   }
 
-  private static void processChunk(byte[] buf, int offset, StringBuilder output) {
-    output.append(ALPHABET[((buf[offset] & 0xff) << 3) | ((buf[++offset] & 0xe0) >>> 5)]);
-    output.append(ALPHABET[((buf[offset] & 0x1f) << 6) | ((buf[++offset] & 0xfd) >>> 2)]);
-    output.append(ALPHABET[((buf[offset] & 0x03) << 9) | ((buf[++offset] & 0xff) << 1) | ((buf[++offset] & 0x80) >>> 7)]);
-    output.append(ALPHABET[((buf[offset] & 0x7f) << 4) | ((buf[++offset] & 0xf0) >>> 4)]);
-    output.append(ALPHABET[((buf[offset] & 0x0f) << 7) | ((buf[++offset] & 0xfe) >>> 1)]);
-    output.append(ALPHABET[((buf[offset] & 0x01) << 10) | ((buf[++offset] & 0xff) << 2) | ((buf[++offset] & 0xc0) >>> 6)]);
-    output.append(ALPHABET[((buf[offset] & 0x3f) << 5) | ((buf[++offset] & 0xf8) >>> 3)]);
-    output.append(ALPHABET[((buf[offset] & 0x07) << 8) | (buf[++offset] & 0xff)]);
+  private static void encodeChunk(byte[] buf, int offset, StringBuilder output) {
+    output.append(CHARSET[((buf[offset] & 0xff) << 3) | ((buf[++offset] & 0xe0) >>> 5)]);
+    output.append(CHARSET[((buf[offset] & 0x1f) << 6) | ((buf[++offset] & 0xfd) >>> 2)]);
+    output.append(CHARSET[((buf[offset] & 0x03) << 9) | ((buf[++offset] & 0xff) << 1) | ((buf[++offset] & 0x80) >>> 7)]);
+    output.append(CHARSET[((buf[offset] & 0x7f) << 4) | ((buf[++offset] & 0xf0) >>> 4)]);
+    output.append(CHARSET[((buf[offset] & 0x0f) << 7) | ((buf[++offset] & 0xfe) >>> 1)]);
+    output.append(CHARSET[((buf[offset] & 0x01) << 10) | ((buf[++offset] & 0xff) << 2) | ((buf[++offset] & 0xc0) >>> 6)]);
+    output.append(CHARSET[((buf[offset] & 0x3f) << 5) | ((buf[++offset] & 0xf8) >>> 3)]);
+    output.append(CHARSET[((buf[offset] & 0x07) << 8) | (buf[++offset] & 0xff)]);
   }
 
   public static byte[] decode(String s) {
+    byte[] output = new byte[(int) (Math.ceil(((double) s.length() / 8) * 11))]; 
+    char[] input = s.toCharArray();
+    int index = 0;
+    int current = 0;
+    int value = 0;
+    int chunks = input.length / 8;
+//    for (int i = 0; i < input.length;) {
+//      
+//    }
+        
     throw new RuntimeException("Not Yet Implemented");
+  }
+  
+  private static void decodeChunk(char[] input, int offset, byte[] output, int pos) {
+    int value = INDEXES[CHARSET[input[offset++]]];
+    output[pos++] = (byte) ((value & 0x7f8) >>> 3);
+    output[pos++] = (byte) ((value & 0x07) << 5);
+    value = INDEXES[CHARSET[input[i++]]];
+    output[index++] |= (byte) ((value & 0xf1) >>> 3);
+    
   }
 
   private static char[] range(char start, char stop) {
