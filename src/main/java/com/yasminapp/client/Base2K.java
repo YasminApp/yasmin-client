@@ -32,7 +32,7 @@ public class Base2K {
     // MSB-first
     for (int i=0; i < chunks; i++) {
       // 8/3
-      value = ((buf[offset] & 0xff << 3)) | ((buf[offset+1] & 0xe0) >>> 5);
+      value = ((buf[offset] & 0xff) << 3) | ((buf[offset+1] & 0xe0) >>> 5);
       sb.append(ALPHABET[value]);
       offset++;
       // 5/6
