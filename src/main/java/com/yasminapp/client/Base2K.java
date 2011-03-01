@@ -62,7 +62,7 @@ public class Base2K {
       // 3/8
       value = ((buf[offset] & 0x07) << 8)  | ((buf[offset+1] & 0xff) >>> 3);
       sb.append(ALPHABET[value]);
-      offset++;
+      offset+=2;
     }
     // TODO process remainder bytes (buf.length % 11)
     return sb.toString();
