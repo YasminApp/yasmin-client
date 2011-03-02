@@ -23,7 +23,7 @@ public class Base2K {
       range((char) 0x2701, (char) 0x27BE),
       range((char) 0x27C0, (char) 0x27EB),
       range((char) 0x27F0, (char) 0x27FF));
-    
+
     INDEXES = new int[0x2800]; // top == highest value char
     for (int i=0; i < CHARSET.length; i++) {
       INDEXES[CHARSET[i]] = i;
@@ -63,26 +63,47 @@ public class Base2K {
   }
 
   public static byte[] decode(String s) {
-    byte[] output = new byte[(int) (Math.ceil(((double) s.length() / 8) * 11))]; 
+    byte[] output = new byte[(int) (Math.floor(((double) s.length() / 8) * 11))];
     char[] input = s.toCharArray();
-    int index = 0;
-    int current = 0;
-    int value = 0;
+    int offset = 0;
+    int bytes = 0;
     int chunks = input.length / 8;
-//    for (int i = 0; i < input.length;) {
-//      
-//    }
-        
-    throw new RuntimeException("Not Yet Implemented");
+    // process whole chunks of 8 characters
+    for (int i = 0; i < chunks; i++, offset += 8, bytes += 11) {
+      decodeChunk(input, offset, output, bytes);
+    }
+    // handle remaining remaining chacters by padding
+    if (offset < input.length) {
+      char[] padded = new char[8];
+      byte[] tail = new byte[11];
+      System.arraycopy(input, offset, padded, 0, input.length - offset);
+      decodeChunk(padded, 0, tail, 0);
+      int i = 0;
+      // exclude any trailing nulls
+      while (tail[i] != 0) {
+        output[bytes++] = tail[i++];
+      }
+    }
+    return output;
   }
-  
+
   private static void decodeChunk(char[] input, int offset, byte[] output, int pos) {
-    int value = INDEXES[CHARSET[input[offset++]]];
-    output[pos++] = (byte) ((value & 0x7f8) >>> 3);
-    output[pos++] = (byte) ((value & 0x07) << 5);
-    value = INDEXES[CHARSET[input[i++]]];
-    output[index++] |= (byte) ((value & 0xf1) >>> 3);
-    
+    int[] values = new int[8];
+    // peform all the lookups here first so they can be referenced below
+    for (int i=0; i < 8; i++) {
+      values[i] = INDEXES[input[offset + i]];
+    }
+    output[pos++] = (byte) ((values[0] & 0x7f8) >>> 3);
+    output[pos++] = (byte) (((values[0] & 0x07) << 5) | ((values[1] & 0x7c0) >>> 6));
+    output[pos++] = (byte) (((values[1] & 0x3f) << 2) | ((values[2] & 0x600) >>> 9));
+    output[pos++] = (byte) ((values[2] & 0x1fe) >>> 1);
+    output[pos++] = (byte) (((values[2] & 0x01) << 7) | ((values[3] & 0x7f0) >>> 4));
+    output[pos++] = (byte) (((values[3] & 0x0f) << 4) | ((values[4] & 0x780) >>> 7));
+    output[pos++] = (byte) (((values[4] & 0x7f) << 1) | ((values[5] & 0x400) >>> 10));
+    output[pos++] = (byte) ((values[5] & 0x3fc) >> 2);
+    output[pos++] = (byte) (((values[5] & 0x03) << 6) | ((values[6] & 0x7e0) >>> 5));
+    output[pos++] = (byte) (((values[6] & 0x1f) << 3) | ((values[7] & 0x700) >>> 8));
+    output[pos++] = (byte) (values[7] & 0xff);
   }
 
   private static char[] range(char start, char stop) {
