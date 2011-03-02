@@ -1,7 +1,6 @@
 package com.yasminapp;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.yasminapp.client.Base2K;
@@ -60,7 +59,7 @@ public class Base2KTest {
         .getBytes();
     byte[] result = Base2K.decode(input);
     Assert.assertNotNull(result);
-    Assert.assertEquals("Decoded value", expectedResult, result);
+    Assert.assertArrayEquals("Decoded value", expectedResult, result);
   }
 
   @Test
@@ -78,7 +77,7 @@ public class Base2KTest {
     byte[] expectedResult = "00000000000".getBytes();
     byte[] result = Base2K.decode(input);
     Assert.assertNotNull(result);
-    Assert.assertEquals("Decoded value", expectedResult, result);
+    Assert.assertArrayEquals("Decoded value", expectedResult, result);
   }
 
   @Test
@@ -96,7 +95,7 @@ public class Base2KTest {
     byte[] expectedResult = { 'A' };
     byte[] result = Base2K.decode(input);
     Assert.assertNotNull(result);
-    Assert.assertEquals("Decoded value", expectedResult, result);
+    Assert.assertArrayEquals("Decoded value", expectedResult, result);
   }
 
 }
