@@ -31,10 +31,12 @@ public class YasminApp implements EntryPoint {
   public YasminApp() {
   }
 
+  @Override
   public void onModuleLoad() {
     // Set up uncaught exception handler
     if (GWT.isScript()) {
       GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
+        @Override
         public void onUncaughtException(Throwable e) {
           alert("Uncaught exception: " + e);
         }
@@ -50,6 +52,7 @@ public class YasminApp implements EntryPoint {
 
     Anchor encryptButton = Anchor.wrap(getElement($doc, "encrypt"));
     encryptButton.addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent e) {
         encrypt();
       }
@@ -57,6 +60,7 @@ public class YasminApp implements EntryPoint {
 
     Anchor decryptButton = Anchor.wrap(getElement($doc, "do-decrypt"));
     decryptButton.addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent e) {
         decrypt();
       }
@@ -64,6 +68,7 @@ public class YasminApp implements EntryPoint {
 
     Button generateKey = Button.wrap(getElement($doc, "generate-key"));
     generateKey.addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent e) {
         byte[] key = generateKey();
         addKey(key);
@@ -72,13 +77,14 @@ public class YasminApp implements EntryPoint {
 
     Button clearDecrypted = Button.wrap(getElement($doc, "clear-decrypted"));
     clearDecrypted.addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent e) {
     	  decrypted.setValue("");
-    	  
-    	  
+
+
       }
     });
-    
+
     keys = getKeys();
 
     keylist_enc = ListBox.wrap(getElement($doc, "keylist-enc"));
@@ -124,7 +130,7 @@ public class YasminApp implements EntryPoint {
 
   /*
    * Adds a new key into the stored key list
-   * 
+   *
    * XXX: Should we store keys in a map with unique identifiers? It might make
    * sense to enforce name-uniqueness among keys. Not sure.
    */
@@ -143,8 +149,7 @@ public class YasminApp implements EntryPoint {
   public void encrypt() {
     String key = keylist_enc.getValue(keylist_enc.getSelectedIndex());
     byte[] keyBytes = Hex.fromHex(key);
-    AES aes = new AES();
-    aes.init(true, keyBytes);
+    Encrypter aes = AESLight.encrypter(keyBytes);
     int offset = 0;
     byte[] inputBytes;
 
@@ -160,14 +165,14 @@ public class YasminApp implements EntryPoint {
 
     byte[] cipherBytes = new byte[len];
     while (offset + AES_BLOCK_SIZE <= len) {
-      aes.processBlock(inputBytes, offset, cipherBytes, offset);
+      aes.encryptBlock(inputBytes, offset, cipherBytes, offset);
       offset += AES_BLOCK_SIZE; // AES block size
     }
     int remainder = len % AES_BLOCK_SIZE;
     if (remainder > 0) {
       byte[] padded = new byte[AES_BLOCK_SIZE];
       System.arraycopy(inputBytes, offset, padded, 0, remainder);
-      aes.processBlock(padded, 0, cipherBytes, 0);
+      aes.encryptBlock(padded, 0, cipherBytes, 0);
     }
     String result = Base64.encode(cipherBytes);
     plaintext.setValue(result);
@@ -177,8 +182,7 @@ public class YasminApp implements EntryPoint {
   public void decrypt() {
     String key = keylist_dec.getValue(keylist_enc.getSelectedIndex());
     byte[] keyBytes = Hex.fromHex(key);
-    AES aes = new AES();
-    aes.init(false, keyBytes);
+    Decrypter aes = AESLight.decrypter(keyBytes);
     int offset = 0;
     byte[] cipherTextBytes;
     cipherTextBytes = Base64.decode(cipher.getValue());
@@ -192,7 +196,7 @@ public class YasminApp implements EntryPoint {
     }
     byte[] plainTextBytes = new byte[len];
     while (offset + AES_BLOCK_SIZE <= len) {
-      aes.processBlock(cipherTextBytes, offset, plainTextBytes, offset);
+      aes.decryptBlock(cipherTextBytes, offset, plainTextBytes, offset);
       offset += AES_BLOCK_SIZE; // AES block size
     }
     String result = UTF8.decode(plainTextBytes);
