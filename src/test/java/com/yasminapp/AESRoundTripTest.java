@@ -43,23 +43,17 @@ public class AESRoundTripTest {
     byte[] key = Hex.fromHex(keyAndPlainText[0]);
     byte[] plainText = Hex.fromHex(keyAndPlainText[1]);
 
-    System.out.println("Plaintext:  " + new String(Hex.toHex(plainText)));
-    System.out.println("Key:        " + new String(Hex.toHex(key)));
-
     Encrypter enc = AESLight.encrypter(key);
 
     byte[] cipherText = new byte[AES.BLOCK_SIZE];
     enc.encryptBlock(plainText, 0, cipherText, 0);
-    System.out.println("Ciphertext: " + new String(Hex.toHex(cipherText)));
 
     Decrypter dec = AESLight.decrypter(key);
 
     byte[] decrypted = new byte[AES.BLOCK_SIZE];
     dec.decryptBlock(cipherText, 0, decrypted, 0);
 
-    System.out.println("Decrypted:  " + new String(Hex.toHex(decrypted)));
-
     assertArrayEquals("Decrypted data", plainText, decrypted);
-    System.out.println("--------------------------------------------");
+
   }
 }
