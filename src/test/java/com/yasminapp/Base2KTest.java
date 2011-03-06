@@ -1,9 +1,12 @@
 package com.yasminapp;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.yasminapp.client.Base2K;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class Base2KTest {
@@ -13,8 +16,8 @@ public class Base2KTest {
     byte[] input = "The Quick Brown Fox Jumped Over The Lazy Dog".getBytes();
     String expectedResult = "˫ɟʆᓶ˼ᕬᕃbѰҺ◆ɉДᖿӦʽшӶ΢ɉ➧ǚᘣtРƍÛᗶᔛᑠÐ❓";
     String result = Base2K.encode(input);
-    Assert.assertNotNull(result);
-    Assert.assertEquals("Encoded value", expectedResult, result);
+    assertNotNull(result);
+    assertEquals("Encoded value", expectedResult, result);
   }
 
   @Test
@@ -23,8 +26,8 @@ public class Base2KTest {
     byte[] expectedResult = "The Quick Brown Fox Jumped Over The Lazy Dog"
         .getBytes();
     byte[] result = Base2K.decode(input);
-    Assert.assertNotNull(result);
-    Assert.assertArrayEquals("Decoded value", expectedResult, result);
+    assertNotNull(result);
+    assertArrayEquals("Decoded value", expectedResult, result);
   }
 
   @Test
@@ -32,8 +35,8 @@ public class Base2KTest {
     byte[] input = "00000000000".getBytes();
     String expectedResult = "ǆө£ϟ8ĄᗥP";
     String result = Base2K.encode(input);
-    Assert.assertNotNull(result);
-    Assert.assertEquals("Encoded value", expectedResult, result);
+    assertNotNull(result);
+    assertEquals("Encoded value", expectedResult, result);
   }
 
   @Test
@@ -41,8 +44,8 @@ public class Base2KTest {
     String input = "ǆө£ϟ8ĄᗥP";
     byte[] expectedResult = "00000000000".getBytes();
     byte[] result = Base2K.decode(input);
-    Assert.assertNotNull(result);
-    Assert.assertArrayEquals("Decoded value", expectedResult, result);
+    assertNotNull(result);
+    assertArrayEquals("Decoded value", expectedResult, result);
   }
 
   @Test
@@ -50,8 +53,8 @@ public class Base2KTest {
     byte[] input = { 'A' };
     String expectedResult = "ɍ";
     String result = Base2K.encode(input);
-    Assert.assertNotNull(result);
-    Assert.assertEquals("Encoded value", expectedResult, result);
+    assertNotNull(result);
+    assertEquals("Encoded value", expectedResult, result);
   }
 
   @Test
@@ -59,8 +62,8 @@ public class Base2KTest {
     String input = "ɍ";
     byte[] expectedResult = { 'A' };
     byte[] result = Base2K.decode(input);
-    Assert.assertNotNull(result);
-    Assert.assertArrayEquals("Decoded value", expectedResult, result);
+    assertNotNull(result);
+    assertArrayEquals("Decoded value", expectedResult, result);
   }
 
 }
